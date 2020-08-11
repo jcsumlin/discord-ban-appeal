@@ -28,11 +28,59 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.textarea {
+  color: #dcddde !important;
+
+  background: rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(0, 0, 0, 0.3) !important;
+
+  outline: none !important;
+  box-shadow: none !important;
+
+  transition: border-color .2s ease-in-out;
+  resize: none;
+  margin: 15px 0 !important;
+}
+.MuiOutlinedInput-input,
+.MuiFormLabel-root {
+  color: white !important;
+}
+
+body {
+  background: #2c2f33;
+  font-family: 'Fira Sans', sans-serif;
+  color: #ffffff;
+  text-align: center;
+}
+
+
+.icon {
+  border-radius: 50%;
+  box-shadow: 5px 5px 10px #2c2f33;
+}
+.avatar img {
+  border-radius: 50%;
+  box-shadow: 5px 5px 10px #2c2f33;
+}
+.avatar, label {
+  text-align: justify;
+}
+.button {
+  background-color: #7289da !important;
+  width: 15em;
+  color: white !important;
+}
+
+button {
+  background-color: #7289da !important;
+  width: 10em;
+}
+form button {
+  float: right;
+  color: white !important;
+  width: 5em !important;
+}
+
+.background {
+  margin: 25px;
 }
