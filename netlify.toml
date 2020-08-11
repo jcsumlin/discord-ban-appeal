@@ -1,0 +1,6 @@
+[build]
+publish = "build"
+functions = "functions"
+
+[build.environment]
+AWS_LAMBDA_JS_RUNTIME = "nodejs12.x"
