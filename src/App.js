@@ -13,6 +13,8 @@ import {Redirect} from "react-router-dom";
 import logo from "./Images/header.jpg";
 import Grid from "@material-ui/core/Grid";
 import Success from "./Components/Success";
+import Error from "./Components/Error";
+import PageNotFoundError from "./Components/404";
 
 const DiscordOauth2 = require("discord-oauth2");
 
@@ -34,12 +36,16 @@ function App() {
                     <Route path="/callback" exact>
                         <Callback/>
                     </Route>
+                    <Route path="/404" render={(props) => <Error {...props}/>}/>
+
                     <PrivateRoute path="/form" exact>
                         <Form/>
                     </PrivateRoute>
                     <PrivateRoute path="/success" exact>
                         <Success/>
                     </PrivateRoute>
+                    <Route path="*" component={PageNotFoundError} />
+
                 </Switch>
             </Box>
         </Router>

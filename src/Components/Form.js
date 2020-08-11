@@ -6,18 +6,26 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { Redirect } from "react-router-dom";
+import {userIsBanned} from "../Helpers/Discord";
 const axios = require("axios")
 
 
 class Form extends Component {
     constructor(props) {
         super(props);
-        this.state = {success:false, user: {id: null, avatar: null, username: null, discriminator: null}}
-        oauth.getUser(localStorage.getItem("access_token")).then((user) => {
-            this.setState({user: user})
-            this.setState({avatar_url: "https://cdn.discordapp.com/avatars/" + this.state.user.id + "/" + this.state.user.avatar + ".png"})
-
-        });
+        this.state = {
+            success:false,
+            user: {id: null, avatar: null, username: null, discriminator: null},
+            notBanned: false
+        }
+        oauth.getUser(localStorage.getItem("access_token"))
+            .then((user) => {
+                if (!userIsBanned(user.id, process.env.REACT_APP_GUILD_ID, process.env.REACT_APP_BOT_TOKEN)) {
+                    this.setState({notBanned: true})
+                }
+                this.setState({user: user})
+                this.setState({avatar_url: "https://cdn.discordapp.com/avatars/" + this.state.user.id + "/" + this.state.user.avatar + ".png"})
+            });
         this.updateState = this.updateState.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -52,6 +60,12 @@ class Form extends Component {
     render() {
         if (this.state.success) {
             return <Redirect to='/success'/>;
+        }
+        if (this.state.notBanned) {
+            return <Redirect to={{
+                pathname: '/404',
+                state: { errorCode: '404', errorMessage: "It looks like you're not banned... yet..." }
+            }} />;
         }
         return (
             <Grid container>

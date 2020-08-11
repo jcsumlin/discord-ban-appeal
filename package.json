@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "crypto-browserify": "^3.12.0",
     "discord-oauth2": "^2.3.0",
     "dotenv": "^8.2.0",
     "react": "^16.13.1",
