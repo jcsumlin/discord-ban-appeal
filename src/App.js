@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {
     BrowserRouter as Router,
@@ -15,7 +15,6 @@ import Success from "./Components/Success";
 import Error from "./Components/Error";
 import PageNotFoundError from "./Components/404";
 import Helmet from "react-helmet";
-import Icon from "./Images/header.jpg"
 
 const axios = require("axios")
 
@@ -23,24 +22,25 @@ const DiscordOauth2 = require("discord-oauth2");
 
 
 function App() {
-    let title;
-    let icon;
-    let guild_info = getGuildInfo()
-    if (guild_info) {
-        title = guild_info.name
-        icon = guild_info.icon
+    const [icon, setIcon] = useState("https://discord.com/assets/2c21aeda16de354ba5334551a883b481.png");
+    const [title, setTitle] = useState("N/A");
 
-    } else {
-        alert("Unable to fetch server from API. Please check all your environment variables.")
-        title = "N/A"
-        icon = "https://discord.com/assets/fe557f8b82e9d856daa84c6da9071985.png"
-    }
+    axios.get("/.netlify/functions/guild")
+        .then((response) => {
+            if (response.status === 200) {
+                setIcon(`https://cdn.discordapp.com/icons/${process.env.REACT_APP_GUILD_ID}/${response.data.guild_icon}.png`)
+                setTitle(response.data.guild_name)
+            } else {
+                alert("Unable to fetch server from API. Please check all your environment variables.")
+            }
+        })
+
     return (
         <Router className="App">
             <Helmet>
                 <meta charSet="utf-8"/>
                 <title>{`${title} Discord Ban Appeal Application`}</title>
-                <link rel="icon" href={Icon} type="image/x-icon"/>
+                <link rel="icon" href={icon} type="image/x-icon"/>
             </Helmet>
             <Box maxWidth="sm" className="background">
                 <Grid container spacing={4} style={{margin: "50px 0"}}>
@@ -70,16 +70,6 @@ function App() {
             </Box>
         </Router>
     );
-}
-
-function getGuildInfo() {
-    axios.get(window.location.origin + "/.netlify/functions/guild")
-        .then((response) => {
-            if (response.success) {
-                let icon = `https://cdn.discordapp.com/icons/${process.env.REACT_APP_GUILD_ID}/${response.guild_icon}.png`
-                return {name: response.guild_name, icon: icon}
-            } else return false;
-        })
 }
 
 function PrivateRoute({children, ...rest}) {

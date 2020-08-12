@@ -23,7 +23,7 @@ class Form extends Component {
         oauth.getUser(localStorage.getItem("access_token"))
             .then((user) => {
                 if (process.env.REACT_APP_SKIP_BAN_CHECK) {
-                    axios.get(window.location.origin + "/.netlify/functions/user-checks?user_id=" + user.id).then((response) => {
+                    axios.get("/.netlify/functions/user-checks?user_id=" + user.id).then((response) => {
                         if (!response.data.is_banned) {
                             this.setState({notBanned: true})
                         }
