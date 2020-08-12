@@ -84,7 +84,7 @@ class Form extends Component {
                 <Grid item xs={12}>
                     <form onSubmit={this.handleSubmit} noValidate>
                         <div>
-                            <InputLabel htmlFor="why-ban">Why where you banned?</InputLabel>
+                            <InputLabel htmlFor="why-ban">Why were you banned?</InputLabel>
                             <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
                                        id="why-ban" name="ban_reason" aria-describedby="my-helper-text" fullWidth multiline rows={4}/>
                             <InputLabel htmlFor="why-unban">Why do you feel you should be unbanned?</InputLabel>
