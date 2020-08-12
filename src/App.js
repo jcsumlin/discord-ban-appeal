@@ -10,7 +10,6 @@ import Home from "./Components/Home";
 import Callback from "./Components/Callback";
 import Form from "./Components/Form";
 import {Redirect} from "react-router-dom";
-import logo from "./Images/header.jpg";
 import Grid from "@material-ui/core/Grid";
 import Success from "./Components/Success";
 import Error from "./Components/Error";
