@@ -19,6 +19,9 @@ class Form extends Component {
         }
         oauth.getUser(localStorage.getItem("access_token"))
             .then((user) => {
+                axios.get( window.location.origin + "/.netlify/functions/user-checks?user_id=" + user.id).then((response) => {
+                    console.log(response)
+                })
                 this.setState({user: user})
                 this.setState({avatar_url: "https://cdn.discordapp.com/avatars/" + this.state.user.id + "/" + this.state.user.avatar + ".png"})
             });
