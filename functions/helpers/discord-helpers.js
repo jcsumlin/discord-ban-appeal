@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-const { API_ENDPOINT } = require("./discord-helpers.js");
+const API_ENDPOINT = "https://discord.com/api/v6";
 
 function callBanApi(userId, guildId, botToken, method) {
     return fetch(`${API_ENDPOINT}/guilds/${encodeURIComponent(guildId)}/bans/${encodeURIComponent(userId)}`, {
