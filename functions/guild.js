@@ -1,4 +1,4 @@
-import {getGuildInfo} from "./helpers/discord-helpers";
+const {getGuildInfo} = require("./helpers/discord-helpers");
 
 exports.handler = async function (event, context) {
     if (event.httpMethod !== "GET") {
