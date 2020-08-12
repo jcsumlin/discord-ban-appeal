@@ -8,3 +8,7 @@ AWS_LAMBDA_JS_RUNTIME = "nodejs12.x"
 [build.processing]
 html = { pretty_urls = true }
 images = { compress = true }
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
