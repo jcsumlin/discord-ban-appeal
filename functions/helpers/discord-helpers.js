@@ -1,7 +1,5 @@
 const fetch = require("node-fetch");
 
-const API_ENDPOINT = "https://discord.com/api/v6";
-
 function callBanApi(userId, guildId, botToken, method) {
     return fetch(`https://discord.com/api/v6/guilds/${encodeURIComponent(guildId)}/bans/${encodeURIComponent(userId)}`, {
         method: method,
@@ -12,7 +10,11 @@ function callBanApi(userId, guildId, botToken, method) {
 }
 
 async function userIsBanned(userId, guildId, botToken) {
-    return (await callBanApi(userId, guildId, botToken, "GET")).ok;
+    let result = await callBanApi(userId, guildId, botToken, "GET")
+    if (!result.ok && result.status !== 404) {
+        throw new Error("Failed to get user");
+    }
+    return result.ok;
 }
 
 async function unbanUser(userId, guildId, botToken) {
@@ -23,4 +25,4 @@ async function unbanUser(userId, guildId, botToken) {
     }
 }
 
-module.exports = { userIsBanned, unbanUser };
+module.exports = { userIsBanned };
