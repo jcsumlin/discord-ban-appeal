@@ -3,13 +3,20 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-#How to use this project:
-- Copy .env.example to .env and fill out the discord application fields.
-- Run yarn build to build the project for production or yarn start to start the development server.
-The project needs a client_id, client_secret, and a webhook url to run properly
-![Home page ](HomePage.png)
+# How to use this project:
+- Have a server where you are an administrator.
+- Have a custom bot inside this server. You can register/invte one [here](https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications)
+- Create a #ban-appeals channel (name can be whatever you want) and create a new webhook integration for that channel.
+- Fork this repo
+- Register an account with [Netlify](https://www.netlify.com/)
+- Add your forked repo as a build target
+- Fill out the environment variables under Settings > Environment (see .env.example for all the required/optional variables)
+- Watch the site build!
+- Done!
+
+![Home page](HomePage.png)
 ![](BanaAppeal.png)
-![](webhook.png)
+![webhook in action](Screen Shot 2020-08-12 at 4.27.18 PM.png)
 
 ## Available Scripts
 
