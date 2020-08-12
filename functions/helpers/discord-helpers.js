@@ -11,6 +11,8 @@ async function callBanApi(userId, guildId, botToken, method) {
     return axios(config)
         .then((response) => {
             return response;
+        }).catch(() => {
+            return false
         })
 }
 
