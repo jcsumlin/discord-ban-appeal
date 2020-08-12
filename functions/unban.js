@@ -16,12 +16,12 @@ exports.handler = async function (event, context) {
 
                 return {
                     statusCode: 303,
-                    body: "User has been unbanned\nPlease contact them and let them know"
+                    body: JSON.stringify({success: true})
                 };
             } catch (e) {
                 return {
                     statusCode: 400,
-                    body: JSON.stringify(e)
+                    body: JSON.stringify({error: "Failed to unban user, please unban manually."})
                 };
             }
         }
