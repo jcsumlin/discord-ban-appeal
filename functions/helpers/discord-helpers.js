@@ -24,9 +24,10 @@ async function userIsBanned(userId, guildId, botToken) {
 async function unbanUser(userId, guildId, botToken) {
     const result = await callBanApi(userId, guildId, botToken, "DELETE");
 
-    if (!result.ok && result.status !== 404) {
+    if (result === false) {
         throw new Error("Failed to unban user");
     }
+    return result
 }
 
 module.exports = { userIsBanned, unbanUser };
