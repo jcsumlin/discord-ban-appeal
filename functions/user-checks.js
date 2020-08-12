@@ -1,4 +1,5 @@
 const { userIsBanned } = require("./helpers/discord-helpers.js");
+const fetch = require("node-fetch");
 
 exports.handler = async function (event, context) {
     if (event.httpMethod !== "GET") {
