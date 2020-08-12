@@ -20,9 +20,6 @@ class Form extends Component {
         }
         oauth.getUser(localStorage.getItem("access_token"))
             .then((user) => {
-                if (!userIsBanned(user.id, process.env.REACT_APP_GUILD_ID, process.env.REACT_APP_BOT_TOKEN)) {
-                    this.setState({notBanned: true})
-                }
                 this.setState({user: user})
                 this.setState({avatar_url: "https://cdn.discordapp.com/avatars/" + this.state.user.id + "/" + this.state.user.avatar + ".png"})
             });
