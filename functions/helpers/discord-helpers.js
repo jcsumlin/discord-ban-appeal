@@ -12,7 +12,7 @@ function callBanApi(userId, guildId, botToken, method) {
 async function userIsBanned(userId, guildId, botToken) {
     let result = await callBanApi(userId, guildId, botToken, "GET")
     if (!result.ok && result.status !== 404) {
-        throw new Error("Failed to get user : " + result);
+        throw new Error("Failed to get user : " + JSON.stringify(result));
     }
     return result.ok;
 }
