@@ -12,12 +12,12 @@ exports.handler = async function (event, context) {
             if (!await userIsBanned(user_id, process.env.REACT_APP_GUILD_ID, process.env.REACT_APP_DISCORD_BOT_TOKEN)) {
                 return {
                     statusCode: 200,
-                    is_banned: false
+                    body: JSON.stringify({is_banned: false}),
                 };
             }
             return {
                 statusCode: 200,
-                is_banned: true,
+                body: JSON.stringify({is_banned: true}),
             };
         }
     }
