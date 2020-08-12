@@ -8,7 +8,7 @@ exports.handler = async function (event, context) {
     }
     var user_id = event.queryStringParameters.user_id
     return {
-        body: user_id,
+        body:  + `${user_id} ${process.env.REACT_APP_GUILD_ID}  ${process.env.REACT_APP_DISCORD_BOT_TOKEN}`,
         statusCode:200
     }
     if (user_id !== undefined) {
