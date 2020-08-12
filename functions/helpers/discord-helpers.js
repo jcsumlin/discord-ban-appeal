@@ -1,10 +1,9 @@
 const axios = require("axios");
-const API_URL = "https://discord.com/api/v6"
 
 async function callBanApi(userId, guildId, botToken, method) {
     let config = {
         method: method,
-        url: `${API_URL}/guilds/${encodeURIComponent(guildId)}/bans/${encodeURIComponent(userId)}`,
+        url: `https://discord.com/api/v6/guilds/${encodeURIComponent(guildId)}/bans/${encodeURIComponent(userId)}`,
         headers: {
             'Authorization': `Bot ${botToken}`,
         }
@@ -37,10 +36,10 @@ async function getGuildInfo(guildId, botToken) {
 
 }
 
-async function callGuildApi(guildId, botToken, method = "GET") {
+async function callGuildApi(guildId, botToken, method) {
     let config = {
         method: method,
-        url: `${API_URL}/guilds/${encodeURIComponent(guildId)}`,
+        url: `https://discord.com/api/v6/guilds/${encodeURIComponent(guildId)}`,
         headers: {
             'Authorization': `Bot ${botToken}`,
         }
