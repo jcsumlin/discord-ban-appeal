@@ -12,9 +12,6 @@ async function callBanApi(userId, guildId, botToken, method) {
         .then((response) => {
             return response;
         })
-        .catch((error) => {
-            throw new Error("Failed to get user: " + JSON.stringify(error));
-        });
 }
 
 async function userIsBanned(userId, guildId, botToken) {
