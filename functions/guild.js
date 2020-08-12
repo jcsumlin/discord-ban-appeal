@@ -11,7 +11,7 @@ exports.handler = async function (event, context) {
         let result = await getGuildInfo(process.env.REACT_APP_GUILD_ID, process.env.REACT_APP_DISCORD_BOT_TOKEN);
         return {
             statusCode: 303,
-            body: JSON.stringify({success: true, guild_name: result.name, guild_icon: result.icon})
+            body: JSON.stringify({success: true, guild_name: result.data.name, guild_icon: result.data.icon})
         };
     } catch (e) {
         return {
