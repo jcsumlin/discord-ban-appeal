@@ -6,7 +6,6 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { Redirect } from "react-router-dom";
-import {userIsBanned} from "../Helpers/Discord";
 const axios = require("axios")
 
 
