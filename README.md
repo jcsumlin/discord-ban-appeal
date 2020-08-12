@@ -11,12 +11,21 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Register an account with [Netlify](https://www.netlify.com/)
 - Add your forked repo as a build target
 - Fill out the environment variables under Settings > Environment (see .env.example for all the required/optional variables)
+```
+REACT_APP_CLIENT_ID= //Discord Oauth Application Client ID
+REACT_APP_CLIENT_SECRET= //Discord Oauth Application Secret
+REACT_APP_WEBHOOK_URL= //The webhook you made for #ban-appeals
+REACT_APP_DISCORD_BOT_TOKEN= //Used to check if users are banned and unban them if you click the embed link to do so
+REACT_APP_GUILD_ID= //Brands the page with your server name and icon
+REACT_APP_JWT_SECRET= //What the tokens for unbanning users are hashed with. Basically a really long password
+REACT_APP_SKIP_BAN_CHECK= //Optional, skips the check that only allows submissions from users who are actually banned if set to true
+```
 - Watch the site build!
 - Done!
 
 ![Home page](HomePage.png)
 ![](BanaAppeal.png)
-![webhook in action](Screen Shot 2020-08-12 at 4.27.18 PM.png)
+![webhook in action](Screen\ Shot\ 2020-08-12\ at\ 4.27.18 PM.png)
 
 ## Available Scripts
 
