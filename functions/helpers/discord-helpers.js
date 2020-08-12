@@ -1,20 +1,28 @@
-const fetch = require("node-fetch");
+const axios = require("axios");
 
-function callBanApi(userId, guildId, botToken, method) {
-    return fetch(`https://discord.com/api/v6/guilds/${encodeURIComponent(guildId)}/bans/${encodeURIComponent(userId)}`, {
-        method: method,
+async function callBanApi(userId, guildId, botToken, method) {
+    let config = {
+        method: 'get',
+        url: `https://discord.com/api/v6/guilds/${encodeURIComponent(guildId)}/bans/${encodeURIComponent(userId)}`,
         headers: {
-            "Authorization": `Bot ${botToken}`
+            'Authorization': `Bot ${botToken}`,
         }
-    });
+    };
+    return axios(config)
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            throw new Error("Failed to get user : " + JSON.stringify(error));
+        });
 }
 
 async function userIsBanned(userId, guildId, botToken) {
     let result = await callBanApi(userId, guildId, botToken, "GET")
-    if (!result.ok && result.status !== 404) {
-        throw new Error("Failed to get user : " + JSON.stringify(result));
+    if (result && result.status === 404) {
+        throw new Error("Failed to get user: " + JSON.stringify(result));
     }
-    return result.ok;
+    return result;
 }
 
 async function unbanUser(userId, guildId, botToken) {
