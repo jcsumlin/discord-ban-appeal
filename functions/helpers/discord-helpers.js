@@ -2,7 +2,7 @@ const axios = require("axios");
 
 async function callBanApi(userId, guildId, botToken, method) {
     let config = {
-        method: 'get',
+        method: method,
         url: `https://discord.com/api/v6/guilds/${encodeURIComponent(guildId)}/bans/${encodeURIComponent(userId)}`,
         headers: {
             'Authorization': `Bot ${botToken}`,
@@ -29,4 +29,4 @@ async function unbanUser(userId, guildId, botToken) {
     }
 }
 
-module.exports = { userIsBanned };
+module.exports = { userIsBanned, unbanUser };
