@@ -15,6 +15,8 @@ import Grid from "@material-ui/core/Grid";
 import Success from "./Components/Success";
 import Error from "./Components/Error";
 import PageNotFoundError from "./Components/404";
+import Helmet from "react-helmet";
+import Icon from "./Images/header.jpg"
 
 const DiscordOauth2 = require("discord-oauth2");
 
@@ -22,6 +24,11 @@ const DiscordOauth2 = require("discord-oauth2");
 function App() {
     return (
         <Router className="App">
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Tunic Discord Ban Appeal Application</title>
+                <link rel="icon" href={Icon} type="image/x-icon" />
+            </Helmet>
             <Box maxWidth="sm" className="background">
                 <Grid container spacing={4} style={{margin: "50px 0"}}>
                     <Grid item style={{backgroundColor: "#23272a"}} xs={12}>
