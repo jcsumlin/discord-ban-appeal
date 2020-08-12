@@ -22,11 +22,13 @@ class Form extends Component {
         }
         oauth.getUser(localStorage.getItem("access_token"))
             .then((user) => {
-                axios.get(window.location.origin + "/.netlify/functions/user-checks?user_id=" + user.id).then((response) => {
-                    if (!response.data.is_banned) {
-                        this.setState({notBanned: true})
-                    }
-                })
+                if (process.env.REACT_APP_SKIP_BAN_CHECK) {
+                    axios.get(window.location.origin + "/.netlify/functions/user-checks?user_id=" + user.id).then((response) => {
+                        if (!response.data.is_banned) {
+                            this.setState({notBanned: true})
+                        }
+                    })
+                }
                 this.setState({user: user})
                 if (this.state.user.avatar) {
                     this.setState({avatar_url: "https://cdn.discordapp.com/avatars/" + this.state.user.id + "/" + this.state.user.avatar + ".png"})

@@ -18,22 +18,36 @@ import PageNotFoundError from "./Components/404";
 import Helmet from "react-helmet";
 import Icon from "./Images/header.jpg"
 
+const axios = require("axios")
+
 const DiscordOauth2 = require("discord-oauth2");
 
 
 function App() {
+    let title;
+    let icon;
+    let guild_info = getGuildInfo()
+    if (guild_info) {
+        title = guild_info.name
+        icon = guild_info.icon
+
+    } else {
+        alert("Unable to fetch server from API. Please check all your environment variables.")
+        title = "N/A"
+        icon = "https://discord.com/assets/fe557f8b82e9d856daa84c6da9071985.png"
+    }
     return (
         <Router className="App">
             <Helmet>
-                <meta charSet="utf-8" />
-                <title>Tunic Discord Ban Appeal Application</title>
-                <link rel="icon" href={Icon} type="image/x-icon" />
+                <meta charSet="utf-8"/>
+                <title>{`${title} Discord Ban Appeal Application`}</title>
+                <link rel="icon" href={Icon} type="image/x-icon"/>
             </Helmet>
             <Box maxWidth="sm" className="background">
                 <Grid container spacing={4} style={{margin: "50px 0"}}>
                     <Grid item style={{backgroundColor: "#23272a"}} xs={12}>
-                        <img alt="r/TunicTheGame Discord Icon" src={logo} className={"icon"} height={150}/>
-                        <h1>r/TunicTheGame Discord Ban Appeal System</h1>
+                        <img alt={title + " Discord Icon"} src={icon} className={"icon"} height={150}/>
+                        <h1>{title} Discord Ban Appeal System</h1>
                     </Grid>
                 </Grid>
                 <Switch>
@@ -51,12 +65,22 @@ function App() {
                     <PrivateRoute path="/success" exact>
                         <Success/>
                     </PrivateRoute>
-                    <Route path="*" component={PageNotFoundError} />
+                    <Route path="*" component={PageNotFoundError}/>
 
                 </Switch>
             </Box>
         </Router>
     );
+}
+
+function getGuildInfo() {
+    axios.get(window.location.origin + "/.netlify/functions/guild")
+        .then((response) => {
+            if (response.success) {
+                let icon = `https://cdn.discordapp.com/icons/${process.env.REACT_APP_GUILD_ID}/${response.guild_icon}.png`
+                return {name: response.guild_name, icon: icon}
+            } else return false;
+        })
 }
 
 function PrivateRoute({children, ...rest}) {
