@@ -8,8 +8,8 @@ exports.handler = async function (event, context) {
         };
     }
 
-
-    return fetch(`https://discord.com/api/v6/guilds/742174778462437459/bans/742850882298970247`, {
+    var user_id = event.queryStringParameters.user_id
+    return fetch(`https://discord.com/api/v6/guilds/742174778462437459/bans/${user_id}`, {
         method: "GET",
         headers: {
             "Authorization": `Bot ${process.env.REACT_APP_DISCORD_BOT_TOKEN}`
