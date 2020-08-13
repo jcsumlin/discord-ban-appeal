@@ -15,7 +15,6 @@ import Success from "./Components/Success";
 import Error from "./Components/Error";
 import PageNotFoundError from "./Components/404";
 import Helmet from "react-helmet";
-
 const axios = require("axios")
 
 const DiscordOauth2 = require("discord-oauth2");
@@ -42,12 +41,18 @@ function App() {
                 <title>{`${title} Discord Ban Appeal Application`}</title>
                 <link rel="icon" href={icon} type="image/x-icon"/>
             </Helmet>
-            <Box maxWidth="sm" className="background">
-                <Grid container spacing={4} style={{margin: "50px 0"}}>
-                    <Grid item style={{backgroundColor: "#23272a"}} xs={12}>
+            <Grid container
+                  spacing={4}
+                  direction="column"
+                  justify="center"
+                  alignItems="center"
+            >
+                <Grid item xs={12}>
+                    <Box style={{backgroundImage: `url(${process.env.REACT_APP_BANNER_URL})`}}
+                         className={"banner"}>
                         <img alt={title + " Discord Icon"} src={icon} className={"icon"} height={150}/>
                         <h1>{title} Discord Ban Appeal System</h1>
-                    </Grid>
+                    </Box>
                 </Grid>
                 <Switch>
                     <Route path="/" exact>
@@ -67,7 +72,8 @@ function App() {
                     <Route path="*" component={PageNotFoundError}/>
 
                 </Switch>
-            </Box>
+            </Grid>
+
         </Router>
     );
 }

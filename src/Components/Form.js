@@ -22,7 +22,7 @@ class Form extends Component {
         }
         oauth.getUser(localStorage.getItem("access_token"))
             .then((user) => {
-                if (process.env.REACT_APP_SKIP_BAN_CHECK) {
+                if (!process.env.REACT_APP_SKIP_BAN_CHECK) {
                     axios.get("/.netlify/functions/user-checks?user_id=" + user.id).then((response) => {
                         if (!response.data.is_banned) {
                             this.setState({notBanned: true})
@@ -83,30 +83,39 @@ class Form extends Component {
             }}/>;
         }
         return (
-            <Grid container>
-                <Grid item xs={12} className={"avatar"}>
-                    <img alt={"Your discord profile"} src={this.state.avatar_url} height={100}/>
-                    <h2>{this.state.user.username}#{this.state.user.discriminator}</h2>
-                </Grid>
-                <Grid item xs={12}>
-                    <form onSubmit={this.handleSubmit} noValidate>
-                        <div>
-                            <InputLabel htmlFor="why-ban">Why were you banned?</InputLabel>
-                            <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
-                                       id="why-ban" name="ban_reason" aria-describedby="my-helper-text" fullWidth
-                                       multiline rows={4}/>
-                            <InputLabel htmlFor="why-unban">Why do you feel you should be unbanned?</InputLabel>
-                            <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
-                                       id="why-unban" name="unban_reason" aria-describedby="my-helper-text" fullWidth
-                                       multiline rows={4}/>
-                            <InputLabel htmlFor="avoid-ban">What will you do to avoid being banned in the
-                                future?</InputLabel>
-                            <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
-                                       id="avoid-ban" aria-describedby="my-helper-text" name="future_behavior" fullWidth
-                                       multiline rows={4}/>
-                            <Button variant="contained" type={"submit"}>Submit</Button>
-                        </div>
-                    </form>
+            <Grid item xs={12} className={"form"}>
+                <Grid
+                    container
+                    spacing={4}
+                    direction="row"
+                    justify="center"
+                    alignItems="center">
+                    <Grid item xs={12} className={"avatar"}>
+                        <img alt={"Your discord profile"} src={this.state.avatar_url} height={100}/>
+                        <h2>{this.state.user.username}#{this.state.user.discriminator}</h2>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <form onSubmit={this.handleSubmit} noValidate>
+                            <div>
+                                <InputLabel htmlFor="why-ban">Why were you banned?</InputLabel>
+                                <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
+                                           id="why-ban" name="ban_reason" aria-describedby="my-helper-text" fullWidth
+                                           multiline rows={4}/>
+                                <InputLabel htmlFor="why-unban">Why do you feel you should be unbanned?</InputLabel>
+                                <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
+                                           id="why-unban" name="unban_reason" aria-describedby="my-helper-text"
+                                           fullWidth
+                                           multiline rows={4}/>
+                                <InputLabel htmlFor="avoid-ban">What will you do to avoid being banned in the
+                                    future?</InputLabel>
+                                <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
+                                           id="avoid-ban" aria-describedby="my-helper-text" name="future_behavior"
+                                           fullWidth
+                                           multiline rows={4}/>
+                                <Button variant="contained" type={"submit"}>Submit</Button>
+                            </div>
+                        </form>
+                    </Grid>
                 </Grid>
             </Grid>
         );

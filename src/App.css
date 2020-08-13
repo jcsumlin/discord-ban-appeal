@@ -7,12 +7,6 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -55,7 +49,8 @@ body {
 
 
 .icon {
-  border-radius: 50%;
+  background-color: #23272a;
+  border-radius: 25%;
   box-shadow: 5px 5px 10px #2c2f33;
 }
 .avatar img {
@@ -82,5 +77,23 @@ form button {
 }
 
 .background {
-  margin: 25px;
+  margin: 25px !important;
+  /*background-color: #23272a;*/
+}
+
+.banner {
+  background-color: #23272a;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  padding: 25px;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+.form {
+  width: 50%;
+}
+
+h1 {
+  width: 100%;
 }
