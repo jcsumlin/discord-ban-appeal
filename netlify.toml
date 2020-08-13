@@ -1,6 +1,6 @@
 [build]
 publish = "build"
-functions = "./functions"
+functions = "./functions/src"
 
 [build.environment]
 AWS_LAMBDA_JS_RUNTIME = "nodejs12.x"
@@ -12,3 +12,13 @@ images = { compress = true }
 from = "/*"
 to = "/index.html"
 status = 200
+
+[template.environment]
+REACT_APP_CLIENT_ID= "Your Discord Application Client ID"
+REACT_APP_CLIENT_SECRET= "Your Discord Application Client Secret"
+REACT_APP_WEBHOOK_URL= "Webhook you created for a #ban-appeals channel in your server"
+REACT_APP_DISCORD_BOT_TOKEN="Your Discord Application Bot Token"
+REACT_APP_GUILD_ID="The Guild ID you're running this page for"
+REACT_APP_JWT_SECRET="Generate a long password"
+REACT_APP_SKIP_BAN_CHECK="Set to \"true\" to disable spam protection (Optional)"
+REACT_APP_BANNER_URL="The image URL you want to use for a custom banner (Optional)"
