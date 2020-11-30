@@ -61,9 +61,9 @@ class Form extends Component {
             description: `**Username**: <@${this.state.user.id}> (${this.state.user.username}#${this.state.user.discriminator})\n` +
                 "**Why were you banned?**\n" + this.state.ban_reason + "\n\n" +
                 "**Why do you feel you should be unbanned?**\n" + this.state.unban_reason + "\n\n" +
-                "**What will you do to avoid being banned in the future?**\n" + this.state.future_behavior + "\n\n " +
-                "**Actions**\n" +
-                `[Approve appeal and unban user](${unbanUrl}?token=${encodeURIComponent(createJwt(unbanInfo))})`,
+                "**What will you do to avoid being banned in the future?**\n" + this.state.future_behavior + "\n\n ",
+//                 "**Actions**\n" +
+//                 `[Approve appeal and unban user](${unbanUrl}?token=${encodeURIComponent(createJwt(unbanInfo))})`,
             timestamp: now.toISOString()
         }];
         axios.post(url, {embeds: embed}).then(() => {
