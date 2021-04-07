@@ -25,7 +25,7 @@ REACT_APP_SKIP_BAN_CHECK= //Optional, skips the check that only allows submissio
 
 ![Home page](HomePage.png)
 ![](BanaAppeal.png)
-![webhook in action](Screen\ Shot\ 2020-08-12\ at\ 4.27.18 PM.png)
+![webhook in action](webhookdemo.png)
 
 
 
