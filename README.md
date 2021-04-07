@@ -2,7 +2,9 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d045037a-6ed3-45a5-bfe5-b0d6e06bede9/deploy-status)](https://app.netlify.com/sites/tunic-ban-appeal/deploys)
 
 Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
-#[Demo](https://wumpus-ban-appeal.netlify.app)
+
+# [Demo](https://wumpus-ban-appeal.netlify.app)
+
 # How to use this project:
 - Have a server where you are an administrator.
 - Have a custom bot inside this server. You can register/invte one [here](https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications)
