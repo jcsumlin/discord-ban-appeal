@@ -47,10 +47,10 @@ class Form extends Component {
     handleSubmit(e) {
         var url = process.env.REACT_APP_WEBHOOK_URL;
         const now = new Date();
-//         let unbanInfo = {
-//             userId: this.state.user.id
-//         };
-//         let unbanUrl = window.location.origin + "/.netlify/functions/unban";
+         let unbanInfo = {
+             userId: this.state.user.id
+         };
+         let unbanUrl = window.location.origin + "/.netlify/functions/unban";
         var embed = [{
             title: "New Ban Appeal Received",
             type: "rich",
@@ -61,9 +61,9 @@ class Form extends Component {
             description: `**Username**: <@${this.state.user.id}> (${this.state.user.username}#${this.state.user.discriminator})\n` +
                 "**Why were you banned?**\n" + this.state.ban_reason + "\n\n" +
                 "**Why do you feel you should be unbanned?**\n" + this.state.unban_reason + "\n\n" +
-                "**What will you do to avoid being banned in the future?**\n" + this.state.future_behavior + "\n\n ",
-//                 "**Actions**\n" +
-//                 `[Approve appeal and unban user](${unbanUrl}?token=${encodeURIComponent(createJwt(unbanInfo))})`,
+                "**What will you do to avoid being banned in the future?**\n" + this.state.future_behavior + "\n\n " +
+                "**Actions**\n" +
+                `[Approve appeal and unban user](${unbanUrl}?token=${encodeURIComponent(createJwt(unbanInfo))})`,
             timestamp: now.toISOString()
         }];
         axios.post(url, {embeds: embed}).then(() => {
@@ -79,7 +79,7 @@ class Form extends Component {
         if (this.state.notBanned) {
             return <Redirect to={{
                 pathname: '/404',
-                state: {errorCode: '403', errorMessage: "It looks like you're not banned... yet..."}
+                state: {errorCode: '403', errorMessage: "It looks like you're not banned."}
             }}/>;
         }
         return (
