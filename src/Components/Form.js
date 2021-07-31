@@ -48,7 +48,8 @@ class Form extends Component {
         var url = process.env.REACT_APP_WEBHOOK_URL;
         const now = new Date();
         let unbanInfo = {
-            userId: this.state.user.id
+            userId: this.state.user.id,
+            email: this.state.user.email
         };
         let unbanUrl = window.location.origin + "/.netlify/functions/unban";
         var embed = [{

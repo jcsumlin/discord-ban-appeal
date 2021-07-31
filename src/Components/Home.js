@@ -12,7 +12,7 @@ class Home extends Component {
 
     render() {
         const url = oauth.generateAuthUrl({
-            scope: ["identify", "guilds"],
+            scope: ["identify", "email"],
             state: crypto.randomBytes(16).toString("hex"), // Be aware that randomBytes is sync if no callback is provided
         });
         return (
