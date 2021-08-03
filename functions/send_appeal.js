@@ -1,8 +1,5 @@
 const axios = require("axios");
-const {createJwt} = require("./helpers/jwt-helpers");
-
 const {decodeJwt} = require("./helpers/jwt-helpers");
-const {getGuildInfo} = require("./helpers/discord-helpers");
 const config = require("../src/config.json")
 exports.handler = async function (event, context) {
     if (event.httpMethod !== "POST") {
