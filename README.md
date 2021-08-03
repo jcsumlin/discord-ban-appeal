@@ -3,6 +3,9 @@
 
 Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 
+# [Demo](https://wumpus-ban-appeal.netlify.app)
+## [Support Discord Server](https://discord.gg/EnKHckh6d2)
+
 # How to use this project:
 
 **REQUIREMENTS**
