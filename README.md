@@ -71,3 +71,16 @@ REACT_APP_SKIP_BAN_CHECK= //Optional, skips the check that only allows submissio
 ![](BanaAppeal.png)
 ![webhook in action](Ban_appeal_example.png)
 
+
+### Differences between this repo and sylveon's
+- Server icon and custom banner on landing page
+- Only allow users who are actually banned to submit an appeal
+  - Ability to disable this check
+
+
+### Feature plans
+- [ ] Allow users to be blocked from submitting a ban appeal
+- [ ] Integrate some means of alerting users who are unbanned
+- [ ] Additional Actions such as Deny Ban appeal.
+- [ ] Custom Questions defined by the user
+- [ ] Optional Google Analytics tracking
