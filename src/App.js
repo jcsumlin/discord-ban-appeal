@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {
     BrowserRouter as Router,
@@ -24,15 +24,18 @@ function App() {
     const [icon, setIcon] = useState("https://discord.com/assets/2c21aeda16de354ba5334551a883b481.png");
     const [title, setTitle] = useState("N/A");
 
-    axios.get("/.netlify/functions/guild")
-        .then((response) => {
-            if (response.status === 200) {
-                setIcon(`https://cdn.discordapp.com/icons/${process.env.REACT_APP_GUILD_ID}/${response.data.guild_icon}.png`)
-                setTitle(response.data.guild_name)
-            } else {
-                alert("Unable to fetch server from API. Please check all your environment variables.")
-            }
-        })
+    useEffect(() => {
+        axios.get("/.netlify/functions/guild")
+            .then((response) => {
+                if (response.status === 200) {
+                    setIcon(`https://cdn.discordapp.com/icons/${process.env.REACT_APP_GUILD_ID}/${response.data.guild_icon}.png`)
+                    setTitle(response.data.guild_name)
+                } else {
+                    alert("Unable to fetch server from API. Please check all your environment variables.")
+                }
+            })
+    })
+
 
     return (
         <Router className="App">

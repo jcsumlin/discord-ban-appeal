@@ -20,20 +20,7 @@ class Form extends Component {
             user: {id: null, avatar: null, username: null, discriminator: null},
             notBanned: false
         }
-        oauth.getUser(localStorage.getItem("access_token"))
-            .then((user) => {
-                if (!process.env.REACT_APP_SKIP_BAN_CHECK) {
-                    axios.get("/.netlify/functions/user-checks?user_id=" + user.id).then((response) => {
-                        if (!response.data.is_banned) {
-                            this.setState({notBanned: true})
-                        }
-                    })
-                }
-                this.setState({user: user})
-                if (this.state.user.avatar) {
-                    this.setState({avatar_url: "https://cdn.discordapp.com/avatars/" + this.state.user.id + "/" + this.state.user.avatar + ".png"})
-                }
-            });
+
         this.updateState = this.updateState.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -71,6 +58,23 @@ class Form extends Component {
             this.setState({success: true})
         }).catch(alert)
         e.preventDefault();
+    }
+
+    componentDidMount() {
+        oauth.getUser(localStorage.getItem("access_token"))
+            .then((user) => {
+                if (!process.env.REACT_APP_SKIP_BAN_CHECK) {
+                    axios.get("/.netlify/functions/user-checks?user_id=" + user.id).then((response) => {
+                        if (!response.data.is_banned) {
+                            this.setState({notBanned: true})
+                        }
+                    })
+                }
+                this.setState({user: user})
+                if (this.state.user.avatar) {
+                    this.setState({avatar_url: "https://cdn.discordapp.com/avatars/" + this.state.user.id + "/" + this.state.user.avatar + ".png"})
+                }
+            });
     }
 
     render() {
