@@ -13,10 +13,10 @@ exports.handler = async function (event, context) {
     if (event.queryStringParameters.token !== undefined) {
         const unbanInfo = decodeJwt(event.queryStringParameters.token);
         console.log(unbanInfo)
-        if (unbanInfo.userId !== undefined) {
+        if (unbanInfo.user_id !== undefined) {
             try {
                 // let guild = await getGuildInfo(process.env.REACT_APP_GUILD_ID);
-                let response = await unbanUser(unbanInfo.userId, process.env.REACT_APP_GUILD_ID);
+                let response = await unbanUser(unbanInfo.user_id, process.env.REACT_APP_GUILD_ID);
                 // await sendUnbanEmail(unbanInfo.email, guild.name)
                 if (response.response && response.response.data.code === 10026) {
                     throw new Error("User is not actually banned")

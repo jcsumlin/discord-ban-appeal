@@ -36,7 +36,7 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
   - From the [Discord Developer Application page](https://discord.com/developers/applications) Select the OAuth tab 
   - Click on Add Redirect and enter `https://[site-url]/callback` where `[site-url]` is the site name netlify assigned you, or the one you changed it to.
 
-## Environment Variable Information
+### Environment Variable Information
 
 | Environment Variable | Description | Optional? |
 |---|---|---|
@@ -48,6 +48,8 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 | REACT_APP_JWT_SECRET | A really long string of characters used to establish <br>a secure line of communication with the API of this app.<br>I would recommend using a password generator to create this. <br>**You don't have to remember what its set to** | No |
 | REACT_APP_SKIP_BAN_CHECK | If set to "true" the application will not check if <br>a user is banned before allowing them to fill out <br>an appeal form | Yes |
 | REACT_APP_BANNER_URL | Add a custom banner behind your server icon. <br>Must be a direct link to an image <br>(usually ends in .jpeg or .png etc.) | Yes |
+| REACT_APP_SITE_TITLE | Use a custom title for your site (defaults to {server_name}'s Discord Ban Appeal Application if none is set) | Yes |
+| REACT_APP_SITE_DESCRIPTION | Use a custom SEO description for your site (defaults to {server_name}'s Discord Ban Appeal Application if none is set) | Yes |
 
 ## Deploy on your own web server
 
@@ -72,15 +74,26 @@ REACT_APP_SKIP_BAN_CHECK= //Optional, skips the check that only allows submissio
 ![webhook in action](Ban_appeal_example.png)
 
 
-### Differences between this repo and sylveon's
+## How to block users from abusing your ban appeal form.
+**AFTER** Netlify has deployed your site successfully you may experience bad users who wish to abuse your appeal system. There is a way to block users from submitting any additional appeal requests and clogging up your queue.
+1) Navigate to github where you have cloned this repository.
+1) Click into the `src/` folder
+1) Locate the `config.json` file and edit it.
+1) Add the user ID of the user you'd like to block to the list of `blocked_users` surrounded in quotes.
+    1) For an example of how this should be done, see the `config.json.example` file in the same directory
+  
+
+## Differences between this repo and sylveon's
 - Server icon and custom banner on landing page
 - Only allow users who are actually banned to submit an appeal
   - Ability to disable this check
+- Custom meta tags for better SEO and visibility.
 
 
-### Feature plans
-- [ ] Allow users to be blocked from submitting a ban appeal
+## Feature plans
+- [x] Allow users to be blocked from submitting a ban appeal
+- [x] Add better meta tag support
 - [ ] Integrate some means of alerting users who are unbanned
-- [ ] Additional Actions such as Deny Ban appeal.
+- [ ] Additional Actions such as "Deny Ban appeal".
 - [ ] Custom Questions defined by the user
 - [ ] Optional Google Analytics tracking
