@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {oauth} from "../App"
 import '../App.css';
-import InputLabel from "@material-ui/core/InputLabel";
-import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import {Redirect} from "react-router-dom";
+import Question from "./Question";
 import {createJwt} from "../Helpers/jwt-helpers";
 import config from "../config.json"
 
 const axios = require("axios")
+let questions = require('../custom-questions.json');
 
 
 class Form extends Component {
@@ -21,15 +21,31 @@ class Form extends Component {
             user: {id: null, avatar: null, username: null, discriminator: null, email: null},
             notBanned: false,
             blocked: false,
+            form: []
         }
-
         this.updateState = this.updateState.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
     updateState(e) {
-        this.setState({[e.target.name]: e.target.value});
+        let form = this.state.form
+        var existing = false;
+        for (let i = 0; i < form.length; i++) {
+            if (form[i].id === e.target.id) {
+                existing = true
+                form[i].answer = e.target.value
+                break
+            }
+        }
+        if (existing === false) {
+            let question = {
+                id: e.target.id,
+                question: e.target.name,
+                answer: e.target.value
+            }
+            form.push(question)
+        }
+        this.setState({form: form});
     }
 
     handleSubmit(e) {
@@ -43,9 +59,7 @@ class Form extends Component {
         };
         let unbanUrl = window.location.origin + "/.netlify/functions/unban";
         let data = {
-            ban_reason: this.state.ban_reason,
-            unban_reason: this.state.unban_reason,
-            future_behavior: this.state.future_behavior,
+            form: this.state.form,
             unban_url: unbanUrl
         }
         let auth_header = createJwt(user_info)
@@ -111,21 +125,10 @@ class Form extends Component {
                     <Grid item xs={12}>
                         <form onSubmit={this.handleSubmit} noValidate>
                             <div>
-                                <InputLabel htmlFor="why-ban">Why were you banned?</InputLabel>
-                                <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
-                                           id="why-ban" name="ban_reason" aria-describedby="my-helper-text" fullWidth
-                                           multiline rows={4}/>
-                                <InputLabel htmlFor="why-unban">Why do you feel you should be unbanned?</InputLabel>
-                                <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
-                                           id="why-unban" name="unban_reason" aria-describedby="my-helper-text"
-                                           fullWidth
-                                           multiline rows={4}/>
-                                <InputLabel htmlFor="avoid-ban">What will you do to avoid being banned in the
-                                    future?</InputLabel>
-                                <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
-                                           id="avoid-ban" aria-describedby="my-helper-text" name="future_behavior"
-                                           fullWidth
-                                           multiline rows={4}/>
+                                {questions ? questions.map((q, index) => {
+                                    return <Question question={q.question} characterLimit={q.character_limit} index={index} handleChange={this.updateState}/>
+                                }) : null}
+
                                 <Button variant="contained" type={"submit"}>Submit</Button>
                             </div>
                         </form>

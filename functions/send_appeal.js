@@ -30,16 +30,19 @@ exports.handler = async function (event, context) {
         type: "rich",
         author: {
             name: unbanInfo.username,
-            icon_url: unbanInfo.avatar_url
+            icon_url: unbanInfo.avatar_url ?? "https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png"
         },
-        description: `**Username**: <@${unbanInfo.user_id}> (${unbanInfo.username}#${unbanInfo.user_discriminator})\n` +
-            "**Why were you banned?**\n" + data.ban_reason + "\n\n" +
-            "**Why do you feel you should be unbanned?**\n" + data.unban_reason + "\n\n" +
-            "**What will you do to avoid being banned in the future?**\n" + data.future_behavior + "\n\n " +
-            "**Actions**\n" +
-            `[Approve appeal and unban user](${data.unban_url}?token=${encodeURIComponent(event.headers.authorization)})`,
+        fields: [],
+        description: `**Username**: <@${unbanInfo.user_id}> (${unbanInfo.username}#${unbanInfo.user_discriminator})\n
+         **Actions**\n[Approve appeal and unban user](${data.unban_url}?token=${encodeURIComponent(event.headers.authorization)})`,
         timestamp: now.toISOString()
     }];
+    for (let i = 0; i < data.form.length; i++) {
+        let question = data.form[i].question;
+        let answer = data.form[i].answer;
+        embed[0].fields.push({name: `**${question}**`, value: answer, inline: false});
+    }
+
     return await axios.post(url, {embeds: embed})
         .then(() => {
             return {

@@ -1,10 +1,18 @@
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/d045037a-6ed3-45a5-bfe5-b0d6e06bede9/deploy-status)](https://app.netlify.com/sites/tunic-ban-appeal/deploys)
+Project Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/d045037a-6ed3-45a5-bfe5-b0d6e06bede9/deploy-status)](https://app.netlify.com/sites/tunic-ban-appeal/deploys)
 
 Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 
 # [Demo](https://wumpus-ban-appeal.netlify.app)
 ## [Support Discord Server](https://discord.gg/EnKHckh6d2)
+
+##### Table of Contents
+1. [ Deploy on Netlify ](#netlify)
+2. [ Deploy on your own web server ](#vps)
+2. [ How to block users ](#block)
+2. [ How to create your own custom questions ](#questions)
+2. [ Differences between this repo and sylveon's ](#diff)
+2. [ Feature Roadmap ](#featureplan)
 
 # How to use this project:
 
@@ -15,6 +23,7 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
     - Create Webhooks
     - Invite bots
 
+<a name="netlify"></a>
 ## Easy Way: Deploy on Netlify
 
 [![](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/jcsumlin/discord-ban-appeal)
@@ -51,6 +60,7 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 | REACT_APP_SITE_TITLE | Use a custom title for your site (defaults to {server_name}'s Discord Ban Appeal Application if none is set) | Yes |
 | REACT_APP_SITE_DESCRIPTION | Use a custom SEO description for your site (defaults to {server_name}'s Discord Ban Appeal Application if none is set) | Yes |
 
+<a name="vps"></a>
 ## Deploy on your own web server
 
 - Fork this repo
@@ -73,7 +83,7 @@ REACT_APP_SKIP_BAN_CHECK= //Optional, skips the check that only allows submissio
 ![](BanaAppeal.png)
 ![webhook in action](Ban_appeal_example.png)
 
-
+<a name="block"></a>
 ## How to block users from abusing your ban appeal form.
 **AFTER** Netlify has deployed your site successfully you may experience bad users who wish to abuse your appeal system. There is a way to block users from submitting any additional appeal requests and clogging up your queue.
 1) Navigate to github where you have cloned this repository.
@@ -81,19 +91,29 @@ REACT_APP_SKIP_BAN_CHECK= //Optional, skips the check that only allows submissio
 1) Locate the `config.json` file and edit it.
 1) Add the user ID of the user you'd like to block to the list of `blocked_users` surrounded in quotes.
     1) For an example of how this should be done, see the `config.json.example` file in the same directory
-  
 
+<a name="questions"></a>
+## How to create your own custom questions.
+
+- First, locate the `src/custom-questions.json` file and edit it within your clone of this github repository.
+- Following the [JSON](https://www.w3schools.com/js/js_json_intro.asp) format add or delete questions and modify character limits to your hearts content!
+- Commit your changes by clicking the green "Commit changes" button and Netlify will begin re-deploying your site!
+
+> NOTE: Character limits are still subject to [Discord's Embed character limits](https://discord.com/developers/docs/resources/channel#embed-limits). Please be mindful of this as you add your own.
+
+<a name="diff"></a>
 ## Differences between this repo and sylveon's
 - Server icon and custom banner on landing page
 - Only allow users who are actually banned to submit an appeal
   - Ability to disable this check
 - Custom meta tags for better SEO and visibility.
+- **IMO** a cleaner approach to custom questions.
 
-
-## Feature plans
+<a name="featureplan"></a>
+## Feature roadmap
 - [x] Allow users to be blocked from submitting a ban appeal
 - [x] Add better meta tag support
+- [x] Custom Questions defined by the user
 - [ ] Integrate some means of alerting users who are unbanned
 - [ ] Additional Actions such as "Deny Ban appeal".
-- [ ] Custom Questions defined by the user
 - [ ] Optional Google Analytics tracking

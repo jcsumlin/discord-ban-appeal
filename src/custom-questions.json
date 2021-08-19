@@ -1,0 +1,12 @@
+[
+  {
+    "question": "Why were you banned?",
+    "character_limit": 1024
+  }, {
+    "question": "Why do you feel you should be unbanned?",
+    "character_limit": 1024
+  }, {
+    "question": "What will you do to avoid being banned in the future?",
+    "character_limit": 1024
+  }
+]
