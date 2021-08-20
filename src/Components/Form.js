@@ -68,7 +68,9 @@ class Form extends Component {
             .then((res) => {
                 this.setState({success: res.data.success})
             })
-            .catch(alert)
+            .catch((e) => {
+                alert(e.response.data.error)
+            })
     }
 
     componentDidMount() {

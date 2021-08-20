@@ -53,7 +53,7 @@ exports.handler = async function (event, context) {
         .catch(err => {
             return {
                 statusCode: 500,
-                body: JSON.stringify({success: false, error: err.message})
+                body: JSON.stringify({success: false, error: "There was a problem sending your request to the set discord webhook. Please contact and admin or open a support ticket."})
             };
         })
 }
