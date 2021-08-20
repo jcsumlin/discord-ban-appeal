@@ -30,7 +30,7 @@ exports.handler = async function (event, context) {
         type: "rich",
         author: {
             name: unbanInfo.username,
-            icon_url: unbanInfo.avatar_url ?? "https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png"
+            icon_url: unbanInfo.avatar_url ? unbanInfo.avatar_url : "https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png"
         },
         fields: [],
         description: `**Username**: <@${unbanInfo.user_id}> (${unbanInfo.username}#${unbanInfo.user_discriminator})\n
