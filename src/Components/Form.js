@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {oauth} from "../App"
 import '../App.css';
-import InputLabel from "@material-ui/core/InputLabel";
-import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import {Redirect} from "react-router-dom";
+import Question from "./Question";
 import {createJwt} from "../Helpers/jwt-helpers";
+import config from "../config.json"
 
 const axios = require("axios")
+let questions = require('../custom-questions.json');
 
 
 class Form extends Component {
@@ -17,51 +18,69 @@ class Form extends Component {
         this.state = {
             success: false,
             avatar_url: "https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png",
-            user: {id: null, avatar: null, username: null, discriminator: null},
-            notBanned: false
+            user: {id: null, avatar: null, username: null, discriminator: null, email: null},
+            notBanned: false,
+            blocked: false,
+            form: []
         }
-
         this.updateState = this.updateState.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
-
     updateState(e) {
-        this.setState({[e.target.name]: e.target.value});
+        let form = this.state.form
+        var existing = false;
+        for (let i = 0; i < form.length; i++) {
+            if (form[i].id === e.target.id) {
+                existing = true
+                form[i].answer = e.target.value
+                break
+            }
+        }
+        if (existing === false) {
+            let question = {
+                id: e.target.id,
+                question: e.target.name,
+                answer: e.target.value
+            }
+            form.push(question)
+        }
+        this.setState({form: form});
     }
 
     handleSubmit(e) {
-        var url = process.env.REACT_APP_WEBHOOK_URL;
-        const now = new Date();
-        let unbanInfo = {
-            userId: this.state.user.id,
-            email: this.state.user.email
+        e.preventDefault();
+        let user_info = {
+            username: this.state.user.username,
+            user_id: this.state.user.id,
+            email: this.state.user.email,
+            user_discriminator: this.state.user.discriminator,
+            avatar_url: this.state.user.avatar_url
         };
         let unbanUrl = window.location.origin + "/.netlify/functions/unban";
-        var embed = [{
-            title: "New Ban Appeal Received",
-            type: "rich",
-            author: {
-                name: this.state.user.username,
-                icon_url: this.state.avatar_url
-            },
-            description: `**Username**: <@${this.state.user.id}> (${this.state.user.username}#${this.state.user.discriminator})\n` +
-                "**Why were you banned?**\n" + this.state.ban_reason + "\n\n" +
-                "**Why do you feel you should be unbanned?**\n" + this.state.unban_reason + "\n\n" +
-                "**What will you do to avoid being banned in the future?**\n" + this.state.future_behavior + "\n\n " +
-                "**Actions**\n" +
-                `[Approve appeal and unban user](${unbanUrl}?token=${encodeURIComponent(createJwt(unbanInfo))})`,
-            timestamp: now.toISOString()
-        }];
-        axios.post(url, {embeds: embed}).then(() => {
-            this.setState({success: true})
-        }).catch(alert)
-        e.preventDefault();
+        let data = {
+            form: this.state.form,
+            unban_url: unbanUrl
+        }
+        let auth_header = createJwt(user_info)
+        console.log(auth_header)
+        axios.post('/.netlify/functions/send_appeal', data, {headers: {"Authorization": auth_header}})
+            .then((res) => {
+                this.setState({success: res.data.success})
+            })
+            .catch((e) => {
+                alert(e.response.data.error)
+            })
     }
 
     componentDidMount() {
         oauth.getUser(localStorage.getItem("access_token"))
+            .then(user => {
+                if (config.blocked_users.includes(user.id)) {
+                    return this.setState({blocked: true})
+                }
+                return user
+            })
             .then((user) => {
                 if (!process.env.REACT_APP_SKIP_BAN_CHECK) {
                     axios.get("/.netlify/functions/user-checks?user_id=" + user.id).then((response) => {
@@ -87,6 +106,12 @@ class Form extends Component {
                 state: {errorCode: '403', errorMessage: "It looks like you're not banned... yet..."}
             }}/>;
         }
+        if (this.state.blocked) {
+            return <Redirect to={{
+                pathname: '/404',
+                state: {errorCode: '403', errorMessage: "You have been blocked from submitting further ban appeals"}
+            }}/>;
+        }
         return (
             <Grid item xs={12} className={"form"}>
                 <Grid
@@ -102,21 +127,10 @@ class Form extends Component {
                     <Grid item xs={12}>
                         <form onSubmit={this.handleSubmit} noValidate>
                             <div>
-                                <InputLabel htmlFor="why-ban">Why were you banned?</InputLabel>
-                                <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
-                                           id="why-ban" name="ban_reason" aria-describedby="my-helper-text" fullWidth
-                                           multiline rows={4}/>
-                                <InputLabel htmlFor="why-unban">Why do you feel you should be unbanned?</InputLabel>
-                                <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
-                                           id="why-unban" name="unban_reason" aria-describedby="my-helper-text"
-                                           fullWidth
-                                           multiline rows={4}/>
-                                <InputLabel htmlFor="avoid-ban">What will you do to avoid being banned in the
-                                    future?</InputLabel>
-                                <TextField onChange={this.updateState} variant="outlined" className={"textarea"}
-                                           id="avoid-ban" aria-describedby="my-helper-text" name="future_behavior"
-                                           fullWidth
-                                           multiline rows={4}/>
+                                {questions ? questions.map((q, index) => {
+                                    return <Question question={q.question} characterLimit={q.character_limit} index={index} handleChange={this.updateState}/>
+                                }) : null}
+
                                 <Button variant="contained" type={"submit"}>Submit</Button>
                             </div>
                         </form>
