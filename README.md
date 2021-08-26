@@ -14,6 +14,11 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 2. [ Differences between this repo and sylveon's ](#diff)
 2. [ Feature Roadmap ](#featureplan)
 
+
+![Home page](HomePage.png)
+![](BanaAppeal.png)
+![webhook in action](Ban_appeal_example.png)
+
 # How to use this project:
 
 **REQUIREMENTS**
@@ -61,27 +66,32 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 | REACT_APP_SITE_DESCRIPTION | Use a custom SEO description for your site (defaults to {server_name}'s Discord Ban Appeal Application if none is set) | Yes |
 
 <a name="vps"></a>
-## Deploy on your own web server
+## Hard Way: Deploy on your own web server
 
+This if by far not the prettiest way to do this which is why I recommend you use netlify, but if you're smart enough to deploy this on your own then go for it!
+
+### Requirements:
+ 
+Be aware this project uses serverless functions as its API layer. 
+All the API requests are directed at /.netlify/functions because support issues with netlify's redirect rules. 
+To deploy this yourself you will need to create a serverless API using AWS Lambda or an equivalent from Azure or GCP.
+I will go into specifics below.
+
+### Web frontend
 - Fork this repo
 - Copy `.env.example` to `.env` and fill in each value
-```
-REACT_APP_CLIENT_ID= //Discord Oauth Application Client ID
-REACT_APP_CLIENT_SECRET= //Discord Oauth Application Secret
-REACT_APP_WEBHOOK_URL= //The webhook you made for #ban-appeals
-REACT_APP_DISCORD_BOT_TOKEN= //Used to check if users are banned and unban them if you click the embed link to do so
-REACT_APP_GUILD_ID= //Brands the page with your server name and icon
-REACT_APP_JWT_SECRET= //What the tokens for unbanning users are hashed with. Basically a really long password
-REACT_APP_SKIP_BAN_CHECK= //Optional, skips the check that only allows submissions from users who are actually banned if set to true
-```
 - Run `yarn install` to install the dependencies
 - Run `yarn build` to compile a production build 
 - Direct your webserver to serve the `./build/` directory
-- Done!
 
-![Home page](HomePage.png)
-![](BanaAppeal.png)
-![webhook in action](Ban_appeal_example.png)
+### Serverless backend
+
+- Create a new serverless API in your cloud provider with 4 endpoints.
+    - Each File in `/functions` will be an endpoint, and most of them will require both the files in the `/functions/helpers` folder
+- Make sure all the packages from `package.json` are installed and available for each function
+- Find and replace all occurrences of `/.netlify/functions/` with your endpoint for each function
+
+I've oversimplified a lot of the serverless portion here since it will vary based on your cloud provider but this covers the jist of things.
 
 <a name="block"></a>
 ## How to block users from abusing your ban appeal form.

@@ -1,4 +1,4 @@
-const {getGuildInfo } = require('./helpers/discord-helpers');
+// const {getGuildInfo } = require('./helpers/discord-helpers');
 
 const { decodeJwt } = require("./helpers/jwt-helpers.js");
 const { unbanUser } = require("./helpers/discord-helpers.js");

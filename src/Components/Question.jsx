@@ -24,9 +24,7 @@ class Question extends Component {
 
 
     handleWordCount(event) {
-        console.log("getting here")
         const charCount = event.target.value.length;
-        console.log(charCount)
         this.setState({chars_used: charCount});
         this.props.handleChange(event)
     }
