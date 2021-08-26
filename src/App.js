@@ -28,7 +28,7 @@ function App() {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        axios.get("/.netlify/functions/guild")
+        axios.get("/api/guild")
             .then((response) => {
                 if (response.status === 200) {
                     setIcon(`https://cdn.discordapp.com/icons/${process.env.REACT_APP_GUILD_ID}/${response.data.guild_icon}.png`)

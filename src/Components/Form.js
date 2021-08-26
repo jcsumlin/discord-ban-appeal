@@ -57,14 +57,14 @@ class Form extends Component {
             user_discriminator: this.state.user.discriminator,
             avatar_url: this.state.user.avatar_url
         };
-        let unbanUrl = window.location.origin + "/.netlify/functions/unban";
+        let unbanUrl = window.location.origin + "/api/unban";
         let data = {
             form: this.state.form,
             unban_url: unbanUrl
         }
         let auth_header = createJwt(user_info)
         console.log(auth_header)
-        axios.post('/.netlify/functions/send_appeal', data, {headers: {"Authorization": auth_header}})
+        axios.post('/api/send_appeal', data, {headers: {"Authorization": auth_header}})
             .then((res) => {
                 this.setState({success: res.data.success})
             })
@@ -83,7 +83,7 @@ class Form extends Component {
             })
             .then((user) => {
                 if (!process.env.REACT_APP_SKIP_BAN_CHECK) {
-                    axios.get("/.netlify/functions/user-checks?user_id=" + user.id).then((response) => {
+                    axios.get("/api/user-checks?user_id=" + user.id).then((response) => {
                         if (!response.data.is_banned) {
                             this.setState({notBanned: true})
                         }
