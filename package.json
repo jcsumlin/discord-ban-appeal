@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^7.1.2",
     "discord-oauth2": "^2.3.0",
     "dotenv": "^8.2.0",
+    "netlify-cli": "^6.8.1",
     "netlify-lambda": "^2.0.1",
     "node-fetch": "^2.6.0",
     "react": "^16.13.1",

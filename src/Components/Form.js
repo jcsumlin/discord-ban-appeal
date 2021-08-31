@@ -125,12 +125,12 @@ class Form extends Component {
                         <h2>{this.state.user.username}#{this.state.user.discriminator}</h2>
                     </Grid>
                     <Grid item xs={12}>
-                        <form onSubmit={this.handleSubmit} noValidate>
+                        <form onSubmit={this.handleSubmit} noValidate data-netlify-recaptcha="true" data-netlify="true">
                             <div>
                                 {questions ? questions.map((q, index) => {
                                     return <Question question={q.question} characterLimit={q.character_limit} index={index} handleChange={this.updateState}/>
                                 }) : null}
-
+																<div data-netlify-recaptcha="true"></div>
                                 <Button variant="contained" type={"submit"}>Submit</Button>
                             </div>
                         </form>
