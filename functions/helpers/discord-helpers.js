@@ -1,4 +1,6 @@
 const axios = require("axios");
+const API_ENDPOINT = "https://discord.com/api/v9";
+const MAX_EMBED_FIELD_CHARS = 1024;
 
 const instance = {
     baseURL: 'https://discord.com/api/v9',
@@ -28,7 +30,9 @@ async function callBanApi(userId, guildId, method) {
 
 async function userIsBanned(userId, guildId) {
     let result = await callBanApi(userId, guildId, "GET")
-    return result;
+    console.log(result.response.data)
+    return !(result.response && result.response.data.code === 10026);
+
 }
 
 async function unbanUser(userId, guildId) {
@@ -102,4 +106,4 @@ async function callGuildApi(guildId, method) {
 // }
 
 
-module.exports = {userIsBanned, unbanUser, getGuildInfo};
+module.exports = {userIsBanned, unbanUser, getGuildInfo, API_ENDPOINT, MAX_EMBED_FIELD_CHARS};

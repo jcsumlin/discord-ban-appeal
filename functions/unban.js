@@ -28,7 +28,10 @@ exports.handler = async function (event, context) {
             } catch (e) {
                 return {
                     statusCode: 400,
-                    body: JSON.stringify({error: "Failed to unban user, please unban manually.", error_message: e.message})
+                    body: JSON.stringify({
+                        error: "Failed to unban user, please unban manually.",
+                        error_message: e.message
+                    })
                 };
             }
         }
