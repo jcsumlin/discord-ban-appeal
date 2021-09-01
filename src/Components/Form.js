@@ -7,6 +7,7 @@ import {Redirect} from "react-router-dom";
 import Question from "./Question";
 import {createJwt} from "../Helpers/jwt-helpers";
 import config from "../config.json"
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 const axios = require("axios")
 let questions = require('../custom-questions.json');
@@ -21,7 +22,8 @@ class Form extends Component {
             user: {id: null, avatar: null, username: null, discriminator: null, email: null},
             notBanned: false,
             blocked: false,
-            form: []
+            form: [],
+            token: ""
         }
         this.updateState = this.updateState.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,6 +52,9 @@ class Form extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        if (process.env.REACT_APP_ENABLE_HCAPTCHA === "true" && this.state.token === "") {
+            return alert("You must complete hCaptcha to submit this form")
+        }
         let user_info = {
             username: this.state.user.username,
             user_id: this.state.user.id,
@@ -60,10 +65,12 @@ class Form extends Component {
         let unbanUrl = window.location.origin + "/.netlify/functions/unban";
         let data = {
             form: this.state.form,
-            unban_url: unbanUrl
+            unban_url: unbanUrl,
+            hCaptcha: {
+                token: this.state.token
+            }
         }
         let auth_header = createJwt(user_info)
-        console.log(auth_header)
         axios.post('/.netlify/functions/send_appeal', data, {headers: {"Authorization": auth_header}})
             .then((res) => {
                 this.setState({success: res.data.success})
@@ -82,18 +89,27 @@ class Form extends Component {
                 return user
             })
             .then((user) => {
-                if (!process.env.REACT_APP_SKIP_BAN_CHECK) {
-                    axios.get("/.netlify/functions/user-checks?user_id=" + user.id).then((response) => {
-                        if (!response.data.is_banned) {
-                            this.setState({notBanned: true})
-                        }
-                    })
+                if (process.env.REACT_APP_SKIP_BAN_CHECK === "false") {
+                    axios.get("/.netlify/functions/user-checks?user_id=" + user.id)
+                        .then((response) => {
+                            if (!response.data.is_banned) {
+                                this.setState({notBanned: true})
+                            }
+                        })
                 }
                 this.setState({user: user})
                 if (this.state.user.avatar) {
                     this.setState({avatar_url: "https://cdn.discordapp.com/avatars/" + this.state.user.id + "/" + this.state.user.avatar + ".png"})
                 }
             });
+    }
+
+    handleVerificationSuccess(token) {
+        return this.setState({token: token})
+    }
+
+    handleExpiration() {
+        return this.setState({token: ""})
     }
 
     render() {
@@ -112,6 +128,7 @@ class Form extends Component {
                 state: {errorCode: '403', errorMessage: "You have been blocked from submitting further ban appeals"}
             }}/>;
         }
+
         return (
             <Grid item xs={12} className={"form"}>
                 <Grid
@@ -125,11 +142,19 @@ class Form extends Component {
                         <h2>{this.state.user.username}#{this.state.user.discriminator}</h2>
                     </Grid>
                     <Grid item xs={12}>
-                        <form onSubmit={this.handleSubmit} noValidate>
+                        <form onSubmit={this.handleSubmit} noValidate data-netlify-recaptcha="true" data-netlify="true">
                             <div>
                                 {questions ? questions.map((q, index) => {
-                                    return <Question question={q.question} characterLimit={q.character_limit} index={index} handleChange={this.updateState}/>
+                                    return <Question question={q.question} characterLimit={q.character_limit}
+                                                     index={index} handleChange={this.updateState}/>
                                 }) : null}
+                                {
+                                    process.env.REACT_APP_ENABLE_HCAPTCHA === "true" ?
+                                        <HCaptcha
+                                            sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
+                                            onVerify={(token) => this.handleVerificationSuccess(token)}
+                                            onExpire={() => this.handleExpiration}/> : null
+                                }
 
                                 <Button variant="contained" type={"submit"}>Submit</Button>
                             </div>
