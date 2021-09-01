@@ -30,9 +30,7 @@ async function callBanApi(userId, guildId, method) {
 
 async function userIsBanned(userId, guildId) {
     let result = await callBanApi(userId, guildId, "GET")
-    console.log(result.response.data)
     return !(result.response && result.response.data.code === 10026);
-
 }
 
 async function unbanUser(userId, guildId) {

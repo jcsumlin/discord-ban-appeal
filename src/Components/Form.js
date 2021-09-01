@@ -89,9 +89,6 @@ class Form extends Component {
                 return user
             })
             .then((user) => {
-                console.log(process.env.REACT_APP_SKIP_BAN_CHECK)
-                console.log(typeof process.env.REACT_APP_SKIP_BAN_CHECK)
-
                 if (process.env.REACT_APP_SKIP_BAN_CHECK === "false") {
                     axios.get("/.netlify/functions/user-checks?user_id=" + user.id)
                         .then((response) => {

@@ -97,22 +97,18 @@ I will go into specifics below.
 I've oversimplified a lot of the serverless portion here since it will vary based on your cloud provider but this covers the jist of things.
 
 <a name="block"></a>
+## Adding hCaptcha (like reCaptcha)
+
+[See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/Adding-hCaptcha)
+
 ## How to block users from abusing your ban appeal form.
-**AFTER** Netlify has deployed your site successfully you may experience bad users who wish to abuse your appeal system. There is a way to block users from submitting any additional appeal requests and clogging up your queue.
-1) Navigate to github where you have cloned this repository.
-1) Click into the `src/` folder
-1) Locate the `config.json` file and edit it.
-1) Add the user ID of the user you'd like to block to the list of `blocked_users` surrounded in quotes.
-    1) For an example of how this should be done, see the `config.json.example` file in the same directory
+[See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/Blocking-users-from-submitting-ban-appeals)
+
+
 
 <a name="questions"></a>
 ## How to create your own custom questions.
-
-- First, locate the `src/custom-questions.json` file and edit it within your clone of this github repository.
-- Following the [JSON](https://www.w3schools.com/js/js_json_intro.asp) format add or delete questions and modify character limits to your hearts content!
-- Commit your changes by clicking the green "Commit changes" button and Netlify will begin re-deploying your site!
-
-> NOTE: Character limits are still subject to [Discord's Embed character limits](https://discord.com/developers/docs/resources/channel#embed-limits). Please be mindful of this as you add your own.
+[See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/How-to-create-your-own-custom-questions)
 
 <a name="diff"></a>
 ## Differences between this repo and sylveon's
@@ -127,6 +123,7 @@ I've oversimplified a lot of the serverless portion here since it will vary base
 - [x] Allow users to be blocked from submitting a ban appeal
 - [x] Add better meta tag support
 - [x] Custom Questions defined by the user
+- [x] add hCaptcha/reCaptcha
 - [ ] Integrate some means of alerting users who are unbanned
 - [ ] Additional Actions such as "Deny Ban appeal".
 - [ ] Optional Google Analytics tracking
