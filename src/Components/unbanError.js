@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import {useLocation} from "react-router-dom";
 
