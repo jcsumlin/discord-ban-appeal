@@ -8,6 +8,7 @@ import Question from "./Question";
 import {createJwt} from "../Helpers/jwt-helpers";
 import config from "../config.json"
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import ReactGA from "react-ga";
 
 const axios = require("axios")
 let questions = require('../custom-questions.json');
@@ -78,6 +79,12 @@ class Form extends Component {
             .catch((e) => {
                 alert(e.response.data.error)
             })
+            .finally(() => {
+                ReactGA.event({
+                    category: "Submit Ban Appeal",
+                    action: "User submitted a ban appeal",
+                });
+            })
     }
 
     componentDidMount() {
@@ -86,6 +93,9 @@ class Form extends Component {
                 if (config.blocked_users.includes(user.id)) {
                     return this.setState({blocked: true})
                 }
+                ReactGA.set({
+                    userId: user.id,
+                })
                 return user
             })
             .then((user) => {

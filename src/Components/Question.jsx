@@ -37,7 +37,7 @@ class Question extends Component {
                 </InputLabel>
                 <TextField variant="outlined" className={"textarea"}
                            onChange={this.handleWordCount}
-                           inputProps={{maxlength: this.state.character_limit}}
+                           inputProps={{maxLength: this.state.character_limit}}
                            helperText={`${this.state.chars_used}/${this.state.character_limit}`}
                            id={(this.props.question.toLowerCase()).replaceAll(" ", "-")}
                            name={this.props.question}
