@@ -38,17 +38,20 @@ exports.handler = async function (event, context) {
                 if (response.response && response.response.data.code === 10026) {
                     throw new Error("User is not actually banned")
                 }
+                let success_message = "This ban appeal has been approved and the user has been unbanned from your server"
                 if (process.env.REACT_APP_ENABLE_SENDGRID) {
                     await sendUnbanEmail(unbanInfo, event.headers.host)
+                    success_message += " and notified via email that they can rejoin with the provided invite"
                 }
+                success_message += "."
                 return {
                     statusCode: 302,
-                    headers: {"Location": "/success/unban"}
+                    headers: {"Location": `/success?msg=${encodeURIComponent(success_message)}`}
                 };
             } catch (e) {
                 return {
                     statusCode: 302,
-                    headers: {"Location": `/error/unban?msg=${encodeURIComponent(e.message)}`}
+                    headers: {"Location": `/error?msg=${encodeURIComponent(e.message)}`}
                 };
             }
         }

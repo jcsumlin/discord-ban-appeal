@@ -18,8 +18,8 @@ import Helmet from "react-helmet";
 import Skeleton from '@material-ui/lab/Skeleton';
 import {createBrowserHistory} from "history";
 import * as ReactGA from "react-ga";
-import UnbanSuccess from "./Components/unbanSuccess";
-import UnBanError from "./Components/unbanError";
+import ErrorPath from "./Components/errorPath";
+import SuccessPath from "./Components/successPath";
 
 const axios = require("axios")
 
@@ -81,8 +81,8 @@ function App() {
                         <Callback/>
                     </Route>
                     <Route path="/404" render={(props) => <Error {...props}/>}/>
-                    <Route path="/success/unban" exact component={UnbanSuccess}/>
-                    <Route path="/error/unban" exact component={UnBanError}/>
+                    <Route path="/error" exact component={ErrorPath}/>
+                    <Route path="/success" exact component={SuccessPath}/>
                     <PrivateRoute path="/form" exact>
                         <Form/>
                     </PrivateRoute>

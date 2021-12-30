@@ -21,9 +21,9 @@ exports.handler = async function (event, context) {
     // Authorized
     if (config.blocked_users.includes(unbanInfo.user_id)) {
         return {
-            statusCode: 403,
-            body: JSON.stringify({message: "User is blocked"})
-        }
+            statusCode: 302,
+            headers: {"Location": `/error?msg=${encodeURIComponent("User is blocked")}`}
+        };
     }
     let data = JSON.parse(event.body)
     console.log(data)
@@ -48,8 +48,6 @@ exports.handler = async function (event, context) {
         }
     }
 
-
-
     var appeal_channel_id = process.env.APPEALS_CHANNEL;
     var body = {
         embed: {
@@ -70,12 +68,20 @@ exports.handler = async function (event, context) {
     }
     body.components = [{
         type: 1,
-        components: [{
-            type: 2,
-            style: 5,
-            label: "Approve appeal and unban user",
-            url: `${data.unban_url}?token=${encodeURIComponent(event.headers.authorization)}`
-        }]
+        components: [
+            {
+                type: 2,
+                style: 5,
+                label: "Approve and Unban",
+                url: `${data.unban_url}?token=${encodeURIComponent(event.headers.authorization)}`
+            },
+            {
+                type: 2,
+                style: 5,
+                label: "Deny and Block",
+                url: `${data.deny_and_block_url}?token=${encodeURIComponent(event.headers.authorization)}`
+            },
+        ]
     }]
     console.log("Discord webhook body")
     console.log(body)

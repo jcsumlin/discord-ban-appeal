@@ -64,9 +64,11 @@ class Form extends Component {
             avatar_url: this.state.user.avatar_url
         };
         let unbanUrl = window.location.origin + "/.netlify/functions/unban";
+        let denyAndBlockUrl = window.location.origin + "/.netlify/functions/reject-and-block";
         let data = {
             form: this.state.form,
             unban_url: unbanUrl,
+            deny_and_block_url: denyAndBlockUrl,
             hCaptcha: {
                 token: this.state.token
             }
