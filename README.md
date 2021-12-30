@@ -9,15 +9,17 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 ##### Table of Contents
 1. [ Deploy on Netlify ](#netlify)
 2. [ Deploy on your own web server ](#vps)
-2. [ How to block users ](#block)
-2. [ How to create your own custom questions ](#questions)
-2. [ Differences between this repo and sylveon's ](#diff)
-2. [ Feature Roadmap ](#featureplan)
+3. [ How to block users ](#block)
+4. [ How to create your own custom questions ](#questions)
+5. [ Adding Email Functionality to appeals form ](#emails)
+6. [ Differences between this repo and sylveon's ](#diff)
+7. [ Feature Roadmap ](#featureplan)
 
 
 ![Home page](img_2.png)
 ![](img_1.png)
 ![webhook in action](img.png)
+![user blocked](img_3.png)
 
 # How to use this project:
 
@@ -103,7 +105,6 @@ I've oversimplified a lot of the serverless portion here since it will vary base
 
 <a name="block"></a>
 ## Adding hCaptcha (like reCaptcha)
-
 [See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/Adding-hCaptcha)
 
 ## How to block users from abusing your ban appeal form.
@@ -113,8 +114,9 @@ I've oversimplified a lot of the serverless portion here since it will vary base
 ## How to create your own custom questions.
 [See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/How-to-create-your-own-custom-questions)
 
+<a name="emails"></a>
 ## Adding Email Functionality to appeals form
-[See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/How-to-create-your-own-custom-questions)
+[See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/How-to-email-users-when-theyre-unbanned)
 
 
 <a name="diff"></a>
@@ -124,6 +126,8 @@ I've oversimplified a lot of the serverless portion here since it will vary base
   - Ability to disable this check
 - Custom meta tags for better SEO and visibility.
 - **IMO** a cleaner approach to custom questions.
+- Email integration
+- TODO: Deny and block users from discord embed
 
 <a name="featureplan"></a>
 ## Feature roadmap
@@ -131,6 +135,6 @@ I've oversimplified a lot of the serverless portion here since it will vary base
 - [x] Add better meta tag support
 - [x] Custom Questions defined by the user
 - [x] add hCaptcha/reCaptcha
-- [ ] Integrate some means of alerting users who are unbanned
-- [ ] Additional Actions such as "Deny Ban appeal".
-- [ ] Optional Google Analytics tracking
+- [x] Integrate some means of alerting users who are unbanned
+- [x] Additional Actions such as "Deny Ban appeal".
+- [x] Optional Google Analytics tracking
