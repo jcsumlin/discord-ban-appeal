@@ -34,4 +34,5 @@ REACT_APP_ENABLE_SENDGRID="Sends users an email when they are unbanned (true/fal
 SENDGRID_API_KEY="API Key for Sendgrid"
 SENDGRID_SENDER_EMAIL="Single Sender Verification Email"
 INVITE_URL="Discord invite that can be used in email template to unbanned users"
+GITHUB_PAT="Github Personal Access Token for Deny and Block to work"
 #End of file

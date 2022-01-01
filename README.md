@@ -12,8 +12,9 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 3. [ How to block users ](#block)
 4. [ How to create your own custom questions ](#questions)
 5. [ Adding Email Functionality to appeals form ](#emails)
-6. [ Differences between this repo and sylveon's ](#diff)
-7. [ Feature Roadmap ](#featureplan)
+6. [ Deny and Block Feature ](#deny)
+7. [ Differences between this repo and sylveon's ](#diff)
+8. [ Feature Roadmap ](#featureplan)
 
 
 ![Home page](img_2.png)
@@ -74,6 +75,7 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 | SENDGRID_API_KEY              | [API Key for Sendgrid](https://app.sendgrid.com/settings/api_keys)                                                                                                                                                                   | Yes       |
 | SENDGRID_SENDER_EMAIL         | [Single Sender Verification Email](https://docs.sendgrid.com/ui/sending-email/sender-verification)                                                                                                                                   | Yes       |
 | INVITE_URL                    | Discord invite that can be used in email template to unbanned users                                                                                                                                                                  | Yes       |
+| GITHUB_PAT                    | [Github Personal Access Token](https://github.com/settings/tokens/new) for Deny and Block feature to work. Make sure it never expires and to select the `repo` scope                                                                 | Yes       |
 
 <a name="vps"></a>
 ## Hard Way: Deploy on your own web server
@@ -119,6 +121,10 @@ I've oversimplified a lot of the serverless portion here since it will vary base
 [See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/How-to-email-users-when-theyre-unbanned)
 
 
+<a name="deny"></a>
+## Adding Email Functionality to appeals form
+[See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/How-to-make-a-Personal-Access-Token)
+
 <a name="diff"></a>
 ## Differences between this repo and sylveon's
 - Server icon and custom banner on landing page
@@ -126,8 +132,8 @@ I've oversimplified a lot of the serverless portion here since it will vary base
   - Ability to disable this check
 - Custom meta tags for better SEO and visibility.
 - **IMO** a cleaner approach to custom questions.
-- Email integration
-- TODO: Deny and block users from discord embed
+- Email integration for unban notification
+- Deny and block users from discord embed
 
 <a name="featureplan"></a>
 ## Feature roadmap
