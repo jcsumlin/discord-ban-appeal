@@ -3,20 +3,20 @@ const { Octokit } = require("@octokit/core");
 const {default: axios} = require("axios");
 
 async function get_repo_info() {
-    let regex_repo = /https:\/\/github.com\/([a-z\\d](?:[a-z\\d]|-(?=[a-z\\d])){0,38})+\/([a-z0-9]+(?:(?:(?:[._]|__|[-]*)[a-z0-9]+)+)?)/g;
+    let regex_repo = /^https:\/\/github.com\/(?<username>[A-Za-z.\-_0-9]+)\/(?<repo>[A-Za-z.\-_0-9]+)$/g;
     let repo_info = regex_repo.exec(process.env.REPOSITORY_URL)
-    if (repo_info.length < 3) {
+    if (repo_info.groups === undefined) {
         throw new Error("Unable to parse repo url: " + process.env.REPOSITORY_URL)
     }
-    return repo_info
+    return repo_info.groups
 }
 
 async function blockUser(user_id) {
     const octokit = new Octokit({ auth: process.env.GITHUB_PAT });
     let repo_info = await get_repo_info();
-    let file = await octokit.request(`GET /repos/${repo_info[1]}/${repo_info[2]}/contents/src/config.json`)
+    let file = await octokit.request(`GET /repos/${repo_info.username}/${repo_info.repo}/contents/src/config.json`)
     let config_file_content = await axios({
-        url: `https://raw.githubusercontent.com/${repo_info[1]}/${repo_info[2]}/master/src/config.json`,
+        url: `https://raw.githubusercontent.com/${repo_info.username}/${repo_info.repo}/master/src/config.json`,
         method: 'GET',
         responseType: 'blob',
     })
@@ -26,7 +26,7 @@ async function blockUser(user_id) {
     }
     config.blocked_users.push(user_id);
     try {
-        await octokit.request(`PUT /repos/${repo_info[1]}/${repo_info[2]}/contents/src/config.json`, {
+        await octokit.request(`PUT /repos/${repo_info.username}/${repo_info.repo}/contents/src/config.json`, {
             message: 'User Blocked by API',
             content: btoa(JSON.stringify(config)),
             sha: file.data.sha
