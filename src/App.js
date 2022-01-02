@@ -16,10 +16,21 @@ import Error from "./Components/Error";
 import PageNotFoundError from "./Components/404";
 import Helmet from "react-helmet";
 import Skeleton from '@material-ui/lab/Skeleton';
+import {createBrowserHistory} from "history";
+import * as ReactGA from "react-ga";
+import ErrorPath from "./Components/errorPath";
+import SuccessPath from "./Components/successPath";
 
 const axios = require("axios")
 
 const DiscordOauth2 = require("discord-oauth2");
+
+const history = createBrowserHistory();
+history.listen(location => {
+    ReactGA.set({ page: location.pathname }); // Update the user's current page
+    ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
+
 
 
 function App() {
@@ -38,10 +49,10 @@ function App() {
                     alert("Unable to fetch server from API. Please check all your environment variables.")
                 }
             })
-    })
+    }, [])
 
     return (
-        <Router className="App">
+        <Router className="App" history={history}>
             <Helmet>
                 <meta charSet="utf-8"/>
                 <title>{process.env.REACT_APP_SITE_TITLE ? process.env.REACT_APP_SITE_TITLE : `${title} Discord Ban Appeal Application`}</title>
@@ -70,7 +81,8 @@ function App() {
                         <Callback/>
                     </Route>
                     <Route path="/404" render={(props) => <Error {...props}/>}/>
-
+                    <Route path="/error" exact component={ErrorPath}/>
+                    <Route path="/success" exact component={SuccessPath}/>
                     <PrivateRoute path="/form" exact>
                         <Form/>
                     </PrivateRoute>

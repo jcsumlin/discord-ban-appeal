@@ -8,6 +8,7 @@ import Question from "./Question";
 import {createJwt} from "../Helpers/jwt-helpers";
 import config from "../config.json"
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import ReactGA from "react-ga";
 
 const axios = require("axios")
 let questions = require('../custom-questions.json');
@@ -63,9 +64,11 @@ class Form extends Component {
             avatar_url: this.state.user.avatar_url
         };
         let unbanUrl = window.location.origin + "/.netlify/functions/unban";
+        let denyAndBlockUrl = window.location.origin + "/.netlify/functions/reject-and-block";
         let data = {
             form: this.state.form,
             unban_url: unbanUrl,
+            deny_and_block_url: denyAndBlockUrl,
             hCaptcha: {
                 token: this.state.token
             }
@@ -78,6 +81,12 @@ class Form extends Component {
             .catch((e) => {
                 alert(e.response.data.error)
             })
+            .finally(() => {
+                ReactGA.event({
+                    category: "Submit Ban Appeal",
+                    action: "User submitted a ban appeal",
+                });
+            })
     }
 
     componentDidMount() {
@@ -86,6 +95,9 @@ class Form extends Component {
                 if (config.blocked_users.includes(user.id)) {
                     return this.setState({blocked: true})
                 }
+                ReactGA.set({
+                    userId: user.id,
+                })
                 return user
             })
             .then((user) => {
