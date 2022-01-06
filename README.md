@@ -36,17 +36,17 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 
 [![](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/jcsumlin/discord-ban-appeal)
 
+> **NOTE**: If you already have a custom bot in your server and access to its credentials, skip the first step
+- Create a custom bot inside your server. You can register/invite one [here](https://discord.com/developers/applications). Keep that window handy.
 - Click the "Deploy to Netlify" button.
-    - You will be asked to link your GitHub account then enter values for all the environment variables.
-    - Most of the environment variables will be provided by the Discord Application Dashboard
-> **NOTE**: If you already have a custom bot in your server and access its credentials skip the next step
-- Create a custom bot inside this server. You can register/invite one [here](https://discord.com/developers/applications)
-  
-- Choose a channel (or create a new one) where you want all the ban appeals to appear.
-  - Edit Channel -> Integrations -> Create Webhook
-  - Name it whatever you'd like and make sure its "channel" is set to your designated ban appeal channel
-  - Copy the Webhook URL and paste it in the `REACT_APP_WEBHOOK_URL` variable on Netlify
-- Copy the required keys/secrets from your Discord bot application to the Netlify page.
+    - You will be asked to link your GitHub account then enter values for all the environment variables. (See Environment Variable Information Table)
+- Set the environment variables from your Discord bot application page (`REACT_APP_CLIENT_ID`, `REACT_APP_CLIENT_SECRET`, `REACT_APP_DISCORD_BOT_TOKEN`) 
+- Choose a channel (or create a new one) where you want all the ban appeals to appear and copy its ID into `APPEALS_CHANNEL`
+- Copy your server's ID into `REACT_APP_GUILD_ID`
+- Make a random JWT Secret or generator one [here](https://1password.com/password-generator/) and set inside `REACT_APP_JWT_SECRET`
+- Set `REACT_APP_ENABLE_HCAPTCHA` to `false` unless you intend to add hCaptcha
+- Set `REACT_APP_ENABLE_SENDGRID` to `false` unless you intend to use Sendgrid for unban notifications. 
+- Make and set the `GITHUB_PAT` (see table for information on how)
 - Deploy your application
 - Lastly we'll want to  make sure users can login using Discord
   - First make any changes to the netlify.app deployment URL you wish, or set up your own custom one!
@@ -75,7 +75,7 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 | SENDGRID_API_KEY              | [API Key for Sendgrid](https://app.sendgrid.com/settings/api_keys)                                                                                                                                                                   | Yes       |
 | SENDGRID_SENDER_EMAIL         | [Single Sender Verification Email](https://docs.sendgrid.com/ui/sending-email/sender-verification)                                                                                                                                   | Yes       |
 | INVITE_URL                    | Discord invite that can be used in email template to unbanned users                                                                                                                                                                  | Yes       |
-| GITHUB_PAT                    | [Github Personal Access Token](https://github.com/settings/tokens/new) for Deny and Block feature to work. Make sure it never expires and to select the `repo` scope                                                                 | Yes       |
+| GITHUB_PAT                    | [Github Personal Access Token](https://github.com/settings/tokens/new) for Deny and Block feature to work. Make sure it never expires and to select the `repo` scope                                                                 | No       |
 
 <a name="vps"></a>
 ## Hard Way: Deploy on your own web server
