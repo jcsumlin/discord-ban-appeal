@@ -51,8 +51,8 @@ exports.handler = async function (event, context) {
     var appeal_channel_id = process.env.APPEALS_CHANNEL;
     var body = {
         embed: {
-            title: "New Ban Appeal Received",
-            description: `**Username**: <@${unbanInfo.user_id}> (${unbanInfo.username}#${unbanInfo.user_discriminator})`,
+            title: "Nueva Apelación Recibida",
+            description: `**Usuario**: <@${unbanInfo.user_id}> (${unbanInfo.username}#${unbanInfo.user_discriminator})`,
             author: {
                 name: unbanInfo.username,
                 icon_url: unbanInfo.avatar_url ? unbanInfo.avatar_url : "https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.png"
@@ -72,13 +72,13 @@ exports.handler = async function (event, context) {
             {
                 type: 2,
                 style: 5,
-                label: "Approve and Unban",
+                label: "Aprobar y Desbanear",
                 url: `${data.unban_url}?token=${encodeURIComponent(event.headers.authorization)}`
             },
             {
                 type: 2,
                 style: 5,
-                label: "Deny and Block",
+                label: "Denegar y Bloquear",
                 url: `${data.deny_and_block_url}?token=${encodeURIComponent(event.headers.authorization)}`
             },
         ]
