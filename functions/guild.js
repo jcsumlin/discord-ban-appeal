@@ -9,6 +9,7 @@ exports.handler = async function (event, context) {
 
     try {
         let result = await getGuildInfo(process.env.REACT_APP_GUILD_ID);
+        console.log('Guild Information:', JSON.stringify(result))
         return {
             statusCode: 200,
             body: JSON.stringify({success: true, guild_name: result.name, guild_icon: result.icon})
