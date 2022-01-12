@@ -70,7 +70,7 @@ function App() {
                     <Box style={{backgroundImage: `url(${process.env.REACT_APP_BANNER_URL})`}} className={"banner"}>
                         {loading ? <Skeleton variant={'rect'} height={150} width={150} style={{'margin': '0 auto'}} /> :
                             <img alt={title + " Discord Icon"} src={icon} className={"icon"} height={150}/>}
-                        {loading ? <Skeleton variant={'text'} width={750} height={37}/> : <h1>{title} Discord Ban Appeal System</h1>}
+                        {loading ? <Skeleton variant={'text'} width={750} height={37}/> : <h1>Apelación de ban del servior de VEGETTA777</h1>}
                     </Box>
                 </Grid>
                 <Switch>
