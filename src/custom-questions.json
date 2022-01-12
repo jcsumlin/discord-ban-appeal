@@ -3,6 +3,9 @@
     "question": "¿Por qué te han baneado?",
     "character_limit": 1024
   }, {
+    "question": "¿Cuándo fuiste baneado?",
+    "character_limit": 30
+  }, {
     "question": "¿Por qué deberíamos quitarte el ban? ¿Qué ha cambiado?",
     "character_limit": 1024
   }, {
