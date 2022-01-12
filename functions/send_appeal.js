@@ -107,7 +107,7 @@ exports.handler = async function (event, context) {
                 statusCode: 500,
                 body: JSON.stringify({
                     success: false,
-                    error: "There was a problem sending your request to the set discord webhook. Please contact and admin or open a support ticket."
+                    error: "Failed to post message to appeals channel using bot token. Please contact and admin or open a ticket here https://github.com/jcsumlin/discord-ban-appeal/issues/new?template=bug_report.md",
                 })
             };
         })
