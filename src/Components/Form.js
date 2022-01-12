@@ -131,13 +131,13 @@ class Form extends Component {
         if (this.state.notBanned) {
             return <Redirect to={{
                 pathname: '/404',
-                state: {errorCode: '403', errorMessage: "It looks like you're not banned... yet..."}
+                state: {errorCode: '403', errorMessage: "Parece que no estás baneado... aún..."}
             }}/>;
         }
         if (this.state.blocked) {
             return <Redirect to={{
                 pathname: '/404',
-                state: {errorCode: '403', errorMessage: "You have been blocked from submitting further ban appeals"}
+                state: {errorCode: '403', errorMessage: "Has sido bloqueado y no puedes realizar más apelaciones."}
             }}/>;
         }
 
@@ -168,7 +168,7 @@ class Form extends Component {
                                             onExpire={() => this.handleExpiration}/> : null
                                 }
 
-                                <Button variant="contained" type={"submit"}>Submit</Button>
+                                <Button variant="contained" type={"enviar"}>Submit</Button>
                             </div>
                         </form>
                     </Grid>
