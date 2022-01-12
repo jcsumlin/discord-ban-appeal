@@ -7,15 +7,15 @@ async function sendUnbanEmail(usersInfo, url) {
     sendGridMail.setApiKey(process.env.SENDGRID_API_KEY);
     const html = `
       <div> 
-         Hi ${usersInfo.username}#${usersInfo.user_discriminator}! <br>
-         Your ban appeal request submitted on ${url} has been approved!<br>
-         You are now able to rejoin us using this invite ${process.env.INVITE_URL}
+         ¡Hola ${usersInfo.username}#${usersInfo.user_discriminator}! <br>
+         ¡Tu apelación de ban realizada en ${url} ha sido aprobada!<br>
+         Puedes volver a unirte al servidor a través de este enlace ${process.env.INVITE_URL}
       </div>
     `;
     const mail = {
         from: process.env.SENDGRID_SENDER_EMAIL,
         to: usersInfo.email,
-        subject: "Your Ban Appeal Was Approved!",
+        subject: "¡Tu apelación de ban fue aprobada!",
         html,
     };
     await sendGridMail.send(mail);
