@@ -28,7 +28,7 @@ async function blockUser(user_id) {
     try {
         await octokit.request(`PUT /repos/${repo_info.username}/${repo_info.repo}/contents/src/config.json`, {
             message: 'User Blocked by API',
-            content: btoa(JSON.stringify(config)),
+            content: Buffer.from(JSON.stringify(config)).toString('base64'),
             sha: file.data.sha
         })
     } catch (e) {
