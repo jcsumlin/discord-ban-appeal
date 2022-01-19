@@ -1,12 +1,13 @@
 const { decodeJwt } = require("./helpers/jwt-helpers.js");
 const { Octokit } = require("@octokit/core");
 const {default: axios} = require("axios");
+const config = require("../src/config.json")
 
 async function get_repo_info() {
     let regex_repo = /^https:\/\/github.com\/(?<username>[A-Za-z.\-_0-9]+)\/(?<repo>[A-Za-z.\-_0-9]+)$/g;
-    let repo_info = regex_repo.exec(process.env.REPOSITORY_URL)
+    let repo_info = regex_repo.exec(config.repository_url)
     if (repo_info.groups === undefined) {
-        throw new Error("Unable to parse repo url: " + process.env.REPOSITORY_URL)
+        throw new Error("Unable to parse repo url: " + config.repository_url)
     }
     return repo_info.groups
 }
