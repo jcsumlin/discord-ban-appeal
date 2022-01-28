@@ -137,7 +137,7 @@ class Form extends Component {
         if (this.state.blocked) {
             return <Redirect to={{
                 pathname: '/404',
-                state: {errorCode: '403', errorMessage: "Has sido bloqueado y no puedes realizar más apelaciones."}
+                state: {errorCode: '403', errorMessage: "Has sido bloqueado y no puedes realizar más apelaciones. Esto puede deberse a un abuso del sistema de apelaciones (envíar más de una apelación cada 30 días) o porque el motivo del ban fue incumplimiento de los ToS de Discord."}
             }}/>;
         }
 
