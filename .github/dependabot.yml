@@ -1,0 +1,125 @@
+# Basic dependabot.yml file with
+# minimum configuration for two package managers
+
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "ansi-html"
+    # Look for `package.json` and `lock` files in the `root` directory
+    directory: "/"
+    # Check the npm registry for updates every day (weekdays)
+    schedule:
+      interval: "daily"
+
+  # Enable version updates for netlify lambda
+  - package-ecosystem: "netlify-lambda"
+    # Look for a `netlify-lambda` in the `root` directory
+    directory: "/"
+    # Check for updates once a week
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "serialize-javascript"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "terser-webpack-plugin"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "react-scripts"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "object-path"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "adjust-sourcemap-loader"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "node-notifier"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "@jest/reporters"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "immer"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "react-dev-utils"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "browserslist"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "@babel/helper-compilation-targets"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "core-js-compat"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "glob-parent"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "fast-glob"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "chokidar"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "postcss"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "resolve-url-loader"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "nth-check"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "css-select"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "node-forge"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  
+  - package-ecosystem: "selfsigned"
+    directory: "/"
+    schedule:
+      interval: "daily"
