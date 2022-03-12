@@ -122,7 +122,7 @@ I've oversimplified a lot of the serverless portion here since it will vary base
 
 
 <a name="deny"></a>
-## Adding Email Functionality to appeals form
+## How to generate a Personal Access Token
 [See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/How-to-make-a-Personal-Access-Token)
 
 <a name="diff"></a>
