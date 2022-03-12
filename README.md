@@ -12,9 +12,10 @@ Inspired by [sylveon](https://github.com/sylveon/discord-ban-appeals)
 3. [ How to block users ](#block)
 4. [ How to create your own custom questions ](#questions)
 5. [ Adding Email Functionality to appeals form ](#emails)
-6. [ Deny and Block Feature ](#deny)
-7. [ Differences between this repo and sylveon's ](#diff)
-8. [ Feature Roadmap ](#featureplan)
+6. [ Generating a Personal Access Token ](#pat)
+7. [ Deny and Block Feature ](#deny)
+8. [ Differences between this repo and sylveon's ](#diff)
+9. [ Feature Roadmap ](#featureplan)
 
 
 ![Home page](img_2.png)
@@ -120,8 +121,7 @@ I've oversimplified a lot of the serverless portion here since it will vary base
 ## Adding Email Functionality to appeals form
 [See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/How-to-email-users-when-theyre-unbanned)
 
-
-<a name="deny"></a>
+<a name="pat"></a>
 ## How to generate a Personal Access Token
 [See Wiki article](https://github.com/jcsumlin/discord-ban-appeal/wiki/How-to-make-a-Personal-Access-Token)
 
