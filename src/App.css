@@ -18,10 +18,6 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
 .textarea {
   color: #dcddde !important;
 
@@ -61,13 +57,13 @@ body {
   text-align: justify;
 }
 .button {
-  background-color: #7289da !important;
+  background-color: #5865F2 !important;
   width: 15em;
   color: white !important;
 }
 
 button {
-  background-color: #7289da !important;
+  background-color: #5865F2 !important;
   width: 10em;
 }
 form button {
