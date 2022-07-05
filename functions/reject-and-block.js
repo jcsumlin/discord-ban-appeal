@@ -6,7 +6,7 @@ const config = require("../src/config.json")
 async function get_repo_info() {
     let regex_repo = /^https:\/\/github.com\/(?<username>[A-Za-z.\-_0-9]+)\/(?<repo>[A-Za-z.\-_0-9]+)$/g;
     let repo_info = regex_repo.exec(config.repository_url)
-    if (repo_info.groups === undefined) {
+    if (repo_info.groups == null) {
         throw new Error("Unable to parse repo url: " + config.repository_url)
     }
     return repo_info.groups
