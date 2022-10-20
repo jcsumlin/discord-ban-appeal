@@ -34,7 +34,6 @@ exports.handler = async function (event, context) {
         console.log(unbanInfo.username, unbanInfo.user_id)
         if (unbanInfo.user_id !== undefined) {
             try {
-                console.log(process.env.NETLIFY)
                 if (process.env.NETLIFY === true) { // Only try and unban a user if this is running in Netlify
                     let response = await unbanUser(unbanInfo.user_id, process.env.REACT_APP_GUILD_ID);
                     if (response.response && response.response.data.code === 10026) {

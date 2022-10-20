@@ -64,7 +64,6 @@ exports.handler = async function (event, context) {
         const unbanInfo = decodeJwt(event.queryStringParameters.token);
         if (unbanInfo.user_id !== undefined) {
             try {
-                console.log(process.env.NETLIFY);
                 if (process.env.NETLIFY === true) {
                     await blockUser(unbanInfo.user_id);
                 } else {
