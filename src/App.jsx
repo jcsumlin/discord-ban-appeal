@@ -20,7 +20,6 @@ import {createBrowserHistory} from "history";
 import * as ReactGA from "react-ga";
 import ErrorPath from "./Components/errorPath";
 import SuccessPath from "./Components/successPath";
-import Wizard from './Components/Wizard';
 import ServerIcon from './Images/ServerIcon.jpg'
 
 const axios = require("axios")
@@ -76,9 +75,6 @@ function App() {
                     </Box>
                 </Grid>
                 <Switch>
-                    <Route path="/wizard" exact>
-                        <Wizard/>
-                    </Route>
                     <Route path="/" exact>
                         <Home/>
                     </Route>
