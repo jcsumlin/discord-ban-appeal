@@ -7,7 +7,7 @@ const ErrorPath = () => {
     const msg = query.get("msg");
     return (
         <Grid item>
-            <h1 style={{textAlign: "center", color: "#e60008"}}>Error! Something went wrong.</h1>
+            <h1 style={{textAlign: "center", color: "#ed2425"}}>Error! Something went wrong.</h1>
             <h4>{msg}</h4>
         </Grid>
     )

@@ -20,6 +20,8 @@ import {createBrowserHistory} from "history";
 import * as ReactGA from "react-ga";
 import ErrorPath from "./Components/errorPath";
 import SuccessPath from "./Components/successPath";
+import Wizard from './Components/Wizard';
+import ServerIcon from './Images/ServerIcon.jpg'
 
 const axios = require("axios")
 
@@ -34,7 +36,7 @@ history.listen(location => {
 
 
 function App() {
-    const [icon, setIcon] = useState("https://discord.com/assets/2c21aeda16de354ba5334551a883b481.png");
+    const [icon, setIcon] = useState(ServerIcon);
     const [title, setTitle] = useState(null);
     const [loading, setLoading] = useState(true)
 
@@ -42,7 +44,9 @@ function App() {
         axios.get("/.netlify/functions/guild")
             .then((response) => {
                 if (response.status === 200) {
-                    setIcon(`https://cdn.discordapp.com/icons/${process.env.REACT_APP_GUILD_ID}/${response.data.guild_icon}.png`)
+                    if (response.data.guild_icon) {
+                        setIcon(`https://cdn.discordapp.com/icons/${process.env.REACT_APP_GUILD_ID}/${response.data.guild_icon}.png`)
+                    }
                     setTitle(response.data.guild_name)
                     setLoading(false)
                 } else {
@@ -52,7 +56,7 @@ function App() {
     }, [])
 
     return (
-        <Router className="App" history={history}>
+        <Router history={history}>
             <Helmet>
                 <meta charSet="utf-8"/>
                 <title>{process.env.REACT_APP_SITE_TITLE ? process.env.REACT_APP_SITE_TITLE : `${title} Discord Ban Appeal Application`}</title>
@@ -61,19 +65,20 @@ function App() {
                 <link rel="icon" href={icon} type="image/x-icon"/>
             </Helmet>
             <Grid container
-                  spacing={4}
                   direction="column"
-                  justify="center"
                   alignItems="center"
             >
                 <Grid item xs={12}>
                     <Box style={{backgroundImage: `url(${process.env.REACT_APP_BANNER_URL})`}} className={"banner"}>
                         {loading ? <Skeleton variant={'rect'} height={150} width={150} style={{'margin': '0 auto'}} /> :
-                            <img alt={title + " Discord Icon"} src={icon} className={"icon"} height={150}/>}
+                            <img alt={title + " Discord Icon"} src={icon} className="icon" height={150}/>}
                         {loading ? <Skeleton variant={'text'} width={750} height={37}/> : <h1>{title} Discord Ban Appeal System</h1>}
                     </Box>
                 </Grid>
                 <Switch>
+                    <Route path="/wizard" exact>
+                        <Wizard/>
+                    </Route>
                     <Route path="/" exact>
                         <Home/>
                     </Route>
@@ -86,7 +91,7 @@ function App() {
                     <PrivateRoute path="/form" exact>
                         <Form/>
                     </PrivateRoute>
-                    <PrivateRoute path="/success" exact>
+                    <PrivateRoute path="/submitted" exact>
                         <Success/>
                     </PrivateRoute>
                     <Route path="*" component={PageNotFoundError}/>

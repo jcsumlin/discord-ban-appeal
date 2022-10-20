@@ -15,9 +15,7 @@ class Callback extends Component {
                 code: params.get("code"),
                 scope: "identify guilds email",
                 grantType: "authorization_code",
-
             }).then((response) => {
-
                 localStorage.setItem("access_token", response.access_token)
                 localStorage.setItem("refresh_token", response.refresh_token)
                 this.setState({logged_in: true})

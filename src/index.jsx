@@ -5,7 +5,7 @@ import App from './App';
 import ReactGA from 'react-ga';
 
 const trackingId = process.env.REACT_APP_GOOGLE_ANALYTICS_ID;
-if (trackingId !== "" && trackingId !== undefined) {
+if (trackingId !== null) {
     ReactGA.initialize(trackingId);
 }
 

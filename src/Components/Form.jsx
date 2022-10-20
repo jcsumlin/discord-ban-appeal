@@ -126,7 +126,7 @@ class Form extends Component {
 
     render() {
         if (this.state.success) {
-            return <Redirect to='/success'/>;
+            return <Redirect to='/submitted'/>;
         }
         if (this.state.notBanned) {
             return <Redirect to={{
