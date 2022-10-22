@@ -62,9 +62,7 @@ exports.handler = async function (event, context) {
         const unbanInfo = decodeJwt(event.queryStringParameters.token);
         if (unbanInfo.user_id !== undefined) {
             try {
-                if (process.env.NETLIFY === "true") {
-                    await blockUser(unbanInfo.user_id);
-                }
+                await blockUser(unbanInfo.user_id);
                 return {
                     statusCode: 302,
                     headers: {"Location": `/success?msg=${encodeURIComponent("User blocked successfully!")}`}
