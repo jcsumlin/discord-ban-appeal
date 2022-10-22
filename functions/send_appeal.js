@@ -22,7 +22,7 @@ exports.handler = async function (event, context) {
     if (config.blocked_users.includes(unbanInfo.user_id)) {
         return {
             statusCode: 302,
-            headers: {"Location": `/error?msg=${encodeURIComponent("User is blocked")}`}
+            headers: {"Location": `/error?msg=${encodeURIComponent("User is blocked from submitting appeals.")}`}
         };
     }
     let data = JSON.parse(event.body)
@@ -107,7 +107,7 @@ exports.handler = async function (event, context) {
                 statusCode: 500,
                 body: JSON.stringify({
                     success: false,
-                    error: "Failed to post message to appeals channel using bot token. Please contact and admin or open a ticket here https://github.com/jcsumlin/discord-ban-appeal/issues/new?template=bug_report.md",
+                    error: "Failed to post message to appeals channel using REACT_APP_DISCORD_BOT_TOKEN. Please check value and redeploy site.",
                 })
             };
         })
