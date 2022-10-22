@@ -2,8 +2,6 @@ const { decodeJwt } = require("./helpers/jwt-helpers.js");
 const { Octokit } = require("@octokit/core");
 const {default: axios} = require("axios");
 const config = require("../src/config.json")
-var fs = require('fs')
-var CONFIG_FILE = './src/config.json'
 
 
 async function get_repo_info() {
@@ -66,15 +64,6 @@ exports.handler = async function (event, context) {
             try {
                 if (process.env.NETLIFY === "true") {
                     await blockUser(unbanInfo.user_id);
-                } else {
-                    // Local Development Github Spoof
-                    console.log(unbanInfo)
-                    if (config.blocked_users.includes(unbanInfo.user_id)) {
-                        throw new Error("User is already blocked");
-                    }
-                    config.blocked_users.push(unbanInfo.user_id)
-                    let string_data = JSON.stringify(config);
-                    fs.writeFileSync(CONFIG_FILE, string_data);
                 }
                 return {
                     statusCode: 302,
