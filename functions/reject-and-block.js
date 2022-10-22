@@ -37,15 +37,15 @@ async function blockUser(user_id) {
         method: 'GET',
         responseType: 'blob',
     })
-    let config =  config_file_content.data
-    if (config.blocked_users.includes(user_id)) {
+    let new_config = config_file_content.data
+    if (new_config.blocked_users.includes(user_id)) {
         throw new Error("User is already blocked");
     }
-    config.blocked_users.push(user_id);
+    new_config.blocked_users.push(user_id);
     try {
         await octokit.request(`PUT /repos/${repo_info.username}/${repo_info.repo}/contents/src/config.json`, {
             message: 'User Blocked by API',
-            content: Buffer.from(JSON.stringify(config)).toString('base64'),
+            content: Buffer.from(JSON.stringify(new_config)).toString('base64'),
             sha: file.data.sha
         })
     } catch (e) {
